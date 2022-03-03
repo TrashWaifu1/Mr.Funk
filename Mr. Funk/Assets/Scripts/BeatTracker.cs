@@ -26,9 +26,9 @@ public class BeatTracker : MonoBehaviour
             clap = false;
         }
             
-        if (coolDown <= 0)
+        if (coolDown <= 0.2f)
         {
-            miniCoolDown = 0.07f;
+            miniCoolDown = 0.2f;
             coolDown = 1;
         }
 
@@ -36,6 +36,7 @@ public class BeatTracker : MonoBehaviour
         {
             miniCoolDown -= 1 * Time.deltaTime;
             clap = true;
+            GameObject.Find("Player").GetComponent<PlayerController>().moved = true;
         }
         else
             clap = false;
