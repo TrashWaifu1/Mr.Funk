@@ -7,6 +7,7 @@ public class BeatTracker : MonoBehaviour
     public float bpm = 100;
     public bool clap;
     public GameObject thing;
+   
 
     private float coolDown;
     private float miniCoolDown;
@@ -26,9 +27,9 @@ public class BeatTracker : MonoBehaviour
             clap = false;
         }
             
-        if (coolDown <= 0.2f)
+        if (coolDown <= 0)
         {
-            miniCoolDown = 0.2f;
+            miniCoolDown = 0.001f;
             coolDown = 1;
         }
 
@@ -37,6 +38,10 @@ public class BeatTracker : MonoBehaviour
             miniCoolDown -= 1 * Time.deltaTime;
             clap = true;
             GameObject.Find("Player").GetComponent<PlayerController>().moved = true;
+            GameObject.Find("Player").GetComponent<PlayerController>().early = false;
+
+            if (!GetComponent<AudioSource>().isPlaying)
+                GetComponent<AudioSource>().Play();
         }
         else
             clap = false;
