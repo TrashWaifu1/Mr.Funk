@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
             millCounter += 0.001f * Time.deltaTime;
         }
 
-        if (millCounter >= 0.075f && !early)
+        if (millCounter >= 0.250f && !early)
         {
             early = true;
         }
