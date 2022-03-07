@@ -37,7 +37,7 @@ public class BeatTracker : MonoBehaviour
         {
             miniCoolDown -= 1 * Time.deltaTime;
             clap = true;
-            GameObject.Find("Player").GetComponent<PlayerController>().moved = true;
+            GameObject.Find("Player").GetComponent<PlayerController>().moved = false;
             GameObject.Find("Player").GetComponent<PlayerController>().early = false;
 
             if (!GetComponent<AudioSource>().isPlaying)
