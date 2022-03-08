@@ -9,12 +9,12 @@ public class PlayerController : MonoBehaviour
     public float maxMillCount = 0.250f;
     public float pefectMillCount = 0.040f;
     public bool moved;
-    public MoveChash moveChash;
-    public bool early;
+    public MoveCache moveCache;
+    public bool early = true;
     public float funkMeater;
 
     private Vector3 pos;
-    private float millCounter;
+    public float millCounter;
     private bool wait;
     private bool perfect;
     private bool good;
@@ -25,45 +25,48 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        moveChash = new MoveChash();
+        moveCache = new MoveCache();
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
+        Debug.Log(early);
         bool clap = beatTracker.GetComponent<BeatTracker>().clap;
 
         if (Input.GetKeyDown(KeyCode.W) && !moved && !wait)
         {
-            moveChash.moveType = "vertical";
-            moveChash.direction = 1.5f;
+            moveCache.moveType = "vertical";
+            moveCache.direction = 1.5f;
             moved = true;
         }
 
         if (Input.GetKeyDown(KeyCode.S) && !moved && !wait)
         {
-            moveChash.moveType = "vertical";
-            moveChash.direction = -1.5f;
+            moveCache.moveType = "vertical";
+            moveCache.direction = -1.5f;
             moved = true;
         }
 
         if (Input.GetKeyDown(KeyCode.D) && !moved && !wait)
         {
-            moveChash.moveType = "horizontal";
-            moveChash.direction = 1.5f;
+            moveCache.moveType = "horizontal";
+            moveCache.direction = 1.5f;
             moved = true;
         }
 
         if (Input.GetKeyDown(KeyCode.A) && !moved && !wait)
         {
-            moveChash.moveType = "horizontal";
-            moveChash.direction = -1.5f;
+            moveCache.moveType = "horizontal";
+            moveCache.direction = -1.5f;
             moved = true;
         }
 
         //early to late
         if (clap && early)
         {
+            Debug.Log("early to late");
+
             if (perfect && !fail)
             {
                 Perfect();
@@ -105,6 +108,7 @@ public class PlayerController : MonoBehaviour
         //late to early
         else if (millCounter > maxMillCount && !early)
         {
+            Debug.Log("late to early");
             early = true;
             millCounter = 0;
             wait = false;
@@ -129,37 +133,40 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        
-        if (moveChash.moveType == "vertical" && transform.position.y > pos.y + 0.3f || transform.position.y < pos.y + -0.3f)
+        if (moveCache.moveType == "vertical" && (transform.position.y > pos.y + 0.3f || transform.position.y < pos.y + -0.3f))
         {
             atDestination = true;
             transform.position = pos;
             velocity = Vector2.zero;
             rb.velocity = velocity;
+
+            moveCache.direction = 0;
+            moveCache.moveType = "";
         }
 
-        if (moveChash.moveType == "horizontal" && transform.position.x > pos.x + 0.3f || transform.position.x < pos.x + -0.3f)
+        if (moveCache.moveType == "horizontal" && (transform.position.x > pos.x + 0.3f || transform.position.x < pos.x + -0.3f))
         {
             atDestination = true;
             transform.position = pos;
             velocity = Vector2.zero;
             rb.velocity = velocity;
-        }
-        
 
+            moveCache.direction = 0;
+            moveCache.moveType = "";
+        }
     }
 
     private void FixedUpdate()
     {
         velocity = rb.velocity;
 
-        if (moveChash.moveType == "vertical" && !atDestination)
+        if (moveCache.moveType == "vertical" && !atDestination)
         {
-            velocity = new Vector2(0, moveChash.direction * speed);
+            velocity = new Vector2(0, moveCache.direction * speed);
         }
         else
         {
-            velocity = new Vector2(moveChash.direction * speed, 0);
+            velocity = new Vector2(moveCache.direction * speed, 0);
         }
 
         rb.velocity = velocity;
@@ -168,15 +175,15 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         //vertical
-        if (moveChash.moveType == "vertical")
+        if (moveCache.moveType == "vertical")
         {
-            pos.y =  moveChash.direction + transform.position.y;
+            pos.y =  moveCache.direction + transform.position.y;
             pos.x = transform.position.x;
         }
         //horizontal
         else
         {
-            pos.x = moveChash.direction + transform.position.x;
+            pos.x = moveCache.direction + transform.position.x;
             pos.y = transform.position.y;
         }
 
@@ -193,11 +200,10 @@ public class PlayerController : MonoBehaviour
         if (early)
         {
             funkMeater += 300;
-        }
-            
+        }  
     }
 
-    public class MoveChash
+    public class MoveCache
     {
         public string moveType;
         public float direction;

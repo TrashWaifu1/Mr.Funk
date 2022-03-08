@@ -29,7 +29,7 @@ public class BeatTracker : MonoBehaviour
             
         if (coolDown <= 0)
         {
-            miniCoolDown = 0.001f;
+            miniCoolDown = 0.2f;
             coolDown = 1;
         }
 
