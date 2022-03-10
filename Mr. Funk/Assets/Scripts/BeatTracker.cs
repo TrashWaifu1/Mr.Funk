@@ -7,7 +7,8 @@ public class BeatTracker : MonoBehaviour
     public float bpm = 100;
     public bool clap;
     public GameObject thing;
-   
+    public float millPerBeat;
+    public float beatTicker;
 
     private float coolDown;
     private float miniCoolDown;
@@ -21,6 +22,9 @@ public class BeatTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        millPerBeat = bpm / 1060;
+        beatTicker += 1f * Time.deltaTime;
+
         if (coolDown > 0)
         {
             coolDown -= (bpm / 60) * Time.deltaTime;
@@ -29,7 +33,7 @@ public class BeatTracker : MonoBehaviour
             
         if (coolDown <= 0)
         {
-            miniCoolDown = 0.2f;
+            miniCoolDown = 0.1f;
             coolDown = 1;
         }
 
@@ -46,12 +50,14 @@ public class BeatTracker : MonoBehaviour
         else
             clap = false;
 
-
         if (clap)
         {
             thing.SetActive(true);
         }
         else
             thing.SetActive(false);
+
+        if (clap == true)
+            beatTicker = 0;
     }
 }
