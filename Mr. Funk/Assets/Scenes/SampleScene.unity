@@ -155,7 +155,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bpm: 100
   clap: 0
+  go: 0
   thing: {fileID: 1339963961}
+  millPerBeat: 0
+  beatTicker: 0
 --- !u!4 &885665834
 Transform:
   m_ObjectHideFlags: 0
@@ -320,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070e948947affe6499687ad3e4d0d9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 30
   beatTracker: {fileID: 885665832}
   maxMillCount: 0.25
   pefectMillCount: 0.04

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
+    public float speed = 3;
     public GameObject beatTracker;
     public float maxMillCount = 0.250f;
     public float pefectMillCount = 0.040f;
@@ -27,41 +27,47 @@ public class PlayerController : MonoBehaviour
     {
         moveCache = new MoveCache();
         rb = GetComponent<Rigidbody2D>();
+        pos = transform.position;
     }
 
     void Update()
     {
-        Debug.Log(early);
-        bool clap = beatTracker.GetComponent<BeatTracker>().clap;
+        bool clap = beatTracker.GetComponent<BeatTracker>().go;
 
-        if (Input.GetKeyDown(KeyCode.W) && !moved && !wait)
+        
+        if (Input.GetKeyDown(KeyCode.W) && !moved && clap)
         {
             moveCache.moveType = "vertical";
             moveCache.direction = 1.5f;
+            Move();
             moved = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && !moved && !wait)
+        else if (Input.GetKeyDown(KeyCode.S) && !moved && clap)
         {
             moveCache.moveType = "vertical";
             moveCache.direction = -1.5f;
+            Move();
             moved = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.D) && !moved && !wait)
+        else if (Input.GetKeyDown(KeyCode.D) && !moved && clap)
         {
             moveCache.moveType = "horizontal";
             moveCache.direction = 1.5f;
+            Move();
             moved = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && !moved && !wait)
+        else if (Input.GetKeyDown(KeyCode.A) && !moved && clap)
         {
             moveCache.moveType = "horizontal";
             moveCache.direction = -1.5f;
+            Move();
             moved = true;
         }
 
+        /*
         //early to late
         if (clap && early)
         {
@@ -154,10 +160,23 @@ public class PlayerController : MonoBehaviour
             moveCache.direction = 0;
             moveCache.moveType = "";
         }
+        */
     }
 
     private void FixedUpdate()
     {
+        if (transform.position != pos)
+        rb.AddForce((pos - transform.position) * speed);
+
+        
+        if (transform.position.x < pos.x + 0.3f && transform.position.x > pos.x - 0.3f && transform.position.y < pos.y + 0.3f && transform.position.y > pos.y - 0.3f)
+        {
+            transform.position = pos;
+            rb.velocity = Vector3.zero;
+        }
+        
+
+        /*
         velocity = rb.velocity;
 
         if (moveCache.moveType == "vertical" && !atDestination)
@@ -170,6 +189,7 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.velocity = velocity;
+        */
     }
 
     private void Move()
@@ -188,6 +208,8 @@ public class PlayerController : MonoBehaviour
         }
 
         atDestination = false;
+
+        Debug.Log("move");
     }
 
     private void Good()
