@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.W) && !moved && clap)
         {
+            rb.velocity = Vector3.zero;
             moveCache.moveType = "vertical";
             moveCache.direction = 1.5f;
             Move();
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.S) && !moved && clap)
         {
+            rb.velocity = Vector3.zero;
             moveCache.moveType = "vertical";
             moveCache.direction = -1.5f;
             Move();
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.D) && !moved && clap)
         {
+            rb.velocity = Vector3.zero;
             moveCache.moveType = "horizontal";
             moveCache.direction = 1.5f;
             Move();
@@ -61,6 +64,7 @@ public class PlayerController : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.A) && !moved && clap)
         {
+            rb.velocity = Vector3.zero;
             moveCache.moveType = "horizontal";
             moveCache.direction = -1.5f;
             Move();
