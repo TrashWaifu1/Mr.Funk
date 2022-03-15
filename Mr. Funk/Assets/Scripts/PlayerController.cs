@@ -9,32 +9,35 @@ public class PlayerController : MonoBehaviour
     public float maxMillCount = 0.250f;
     public float pefectMillCount = 0.040f;
     public bool moved;
+    public MoveCache emptyCache;
     public MoveCache moveCache;
-    public bool early = true;
     public float funkMeater;
 
     private Vector3 pos;
     public float millCounter;
-    private bool wait;
-    private bool perfect;
-    private bool good;
-    private bool fail;
     private Rigidbody2D rb;
     private Vector2 velocity;
     private bool atDestination = true;
+    private bool fail;
 
     void Start()
     {
-        moveCache = new MoveCache();
+        emptyCache = new MoveCache();
+        emptyCache.moveType = "";
         rb = GetComponent<Rigidbody2D>();
         pos = transform.position;
     }
 
     void Update()
     {
+        moveCache = emptyCache;
+
+        if (funkMeater > 0)
+            funkMeater -= 100 * Time.deltaTime;
+
         bool clap = beatTracker.GetComponent<BeatTracker>().go;
 
-        
+
         if (Input.GetKeyDown(KeyCode.W) && !moved && clap)
         {
             rb.velocity = Vector3.zero;
@@ -42,7 +45,10 @@ public class PlayerController : MonoBehaviour
             moveCache.direction = 1.5f;
             Move();
             moved = true;
+            Perfect();
         }
+        else if (Input.GetKeyDown(KeyCode.W))
+            fail = true;
 
         else if (Input.GetKeyDown(KeyCode.S) && !moved && clap)
         {
@@ -51,7 +57,10 @@ public class PlayerController : MonoBehaviour
             moveCache.direction = -1.5f;
             Move();
             moved = true;
+            Perfect();
         }
+        else if (Input.GetKeyDown(KeyCode.S))
+            fail = true;
 
         else if (Input.GetKeyDown(KeyCode.D) && !moved && clap)
         {
@@ -60,7 +69,10 @@ public class PlayerController : MonoBehaviour
             moveCache.direction = 1.5f;
             Move();
             moved = true;
+            Perfect();
         }
+        else if (Input.GetKeyDown(KeyCode.D))
+            fail = true;
 
         else if (Input.GetKeyDown(KeyCode.A) && !moved && clap)
         {
@@ -69,131 +81,31 @@ public class PlayerController : MonoBehaviour
             moveCache.direction = -1.5f;
             Move();
             moved = true;
+            Perfect();
         }
+        else if (Input.GetKeyDown(KeyCode.A))
+            fail = true;
 
-        /*
-        //early to late
-        if (clap && early)
+        if (!fail && clap)
         {
-            Debug.Log("early to late");
-
-            if (perfect && !fail)
-            {
-                Perfect();
-                Move();
-            }
-            else if (!fail)
+            if (!moved)
             {
                 Good();
-                Move();
-            }
-
-            early = false;
-            millCounter = 0;
-            wait = false;
-            perfect = false;
-            good = false;
-            fail = false;
-        }
-
-        //early add
-        if (moved && early && wait)
-        {
-            millCounter += 0.001f * Time.deltaTime;
-
-            //max early
-            if (millCounter > maxMillCount)
-            {
-                wait = true;
-                fail = true;
-            }
-            else if ( millCounter <= pefectMillCount)
-            {
-                perfect = true;
-                wait = true;
-            }
-            else
-                wait = true;
-        }
-        //late to early
-        else if (millCounter > maxMillCount && !early)
-        {
-            Debug.Log("late to early");
-            early = true;
-            millCounter = 0;
-            wait = false;
-        }
-        //late add
-        else if (wait)
-        {
-            millCounter += 0.001f * Time.deltaTime;
-            //perfect tap
-            if (moved && millCounter <= pefectMillCount)
-            {
-                Perfect();
-                Move();
-                wait = true;
-            } 
-            //good tap
-            else if (moved)
-            {
-                Good();
-                Move();
-                wait = true;
+                moved = true;
             }
         }
-        
-        if (moveCache.moveType == "vertical" && (transform.position.y > pos.y + 0.3f || transform.position.y < pos.y + -0.3f))
-        {
-            atDestination = true;
-            transform.position = pos;
-            velocity = Vector2.zero;
-            rb.velocity = velocity;
-
-            moveCache.direction = 0;
-            moveCache.moveType = "";
-        }
-
-        if (moveCache.moveType == "horizontal" && (transform.position.x > pos.x + 0.3f || transform.position.x < pos.x + -0.3f))
-        {
-            atDestination = true;
-            transform.position = pos;
-            velocity = Vector2.zero;
-            rb.velocity = velocity;
-
-            moveCache.direction = 0;
-            moveCache.moveType = "";
-        }
-        */
     }
 
     private void FixedUpdate()
     {
         if (transform.position != pos)
         rb.AddForce((pos - transform.position) * speed);
-
         
         if (transform.position.x < pos.x + 0.3f && transform.position.x > pos.x - 0.3f && transform.position.y < pos.y + 0.3f && transform.position.y > pos.y - 0.3f)
         {
             transform.position = pos;
             rb.velocity = Vector3.zero;
         }
-        
-
-        /*
-        velocity = rb.velocity;
-
-        if (moveCache.moveType == "vertical" && !atDestination)
-        {
-            velocity = new Vector2(0, moveCache.direction * speed);
-        }
-        else
-        {
-            velocity = new Vector2(moveCache.direction * speed, 0);
-        }
-
-        rb.velocity = velocity;
-        */
     }
 
     private void Move()
@@ -212,8 +124,6 @@ public class PlayerController : MonoBehaviour
         }
 
         atDestination = false;
-
-        Debug.Log("move");
     }
 
     private void Good()
@@ -223,15 +133,12 @@ public class PlayerController : MonoBehaviour
 
     private void Perfect()
     {
-        if (early)
-        {
-            funkMeater += 300;
-        }  
+            funkMeater += 300; 
     }
 
     public class MoveCache
     {
-        public string moveType;
-        public float direction;
+        public string moveType = "";
+        public float direction = 0;
     }
 }

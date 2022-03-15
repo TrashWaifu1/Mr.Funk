@@ -8,7 +8,6 @@ public class BeatTracker : MonoBehaviour
     public bool clap;
     public bool go;
     public GameObject thing;
-    public float millPerBeat;
     public float beatTicker;
 
     private float coolDown;
@@ -16,26 +15,17 @@ public class BeatTracker : MonoBehaviour
     private float lastTime;
     private bool clapbetween;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        millPerBeat = bpm / 60 * 1000;
-
-        if (coolDown > 0)
+        if (clap == true)
         {
-            coolDown -= (bpm / 60) * Time.deltaTime;
-            clap = false;
+            lastTime = beatTicker;
+            beatTicker = 0;
         }
-            
+
         if (coolDown <= 0)
         {
-            miniCoolDown = 0.001f;
+            miniCoolDown = 0.0001f;
             coolDown = 1;
         }
 
@@ -44,7 +34,6 @@ public class BeatTracker : MonoBehaviour
             miniCoolDown -= 1 * Time.deltaTime;
             clap = true;
             GameObject.Find("Player").GetComponent<PlayerController>().moved = false;
-            GameObject.Find("Player").GetComponent<PlayerController>().early = false;
 
             if (!GetComponent<AudioSource>().isPlaying)
                 GetComponent<AudioSource>().Play();
@@ -62,31 +51,27 @@ public class BeatTracker : MonoBehaviour
         else
             thing.SetActive(false);
 
-        if (beatTicker < lastTime / 2 )
+        if (beatTicker < (lastTime / 2 + lastTime / 4))
         {
             go = true; 
         }
             
-
-        if (clapbetween && beatTicker > lastTime / 2)
+        if (clapbetween && beatTicker > lastTime / 2.5f)
         {
             go = false;
             clapbetween = false;
         }
             
-
-        //((lastTime / 2) + (lastTime / 3))
-        // beatTicker > lastTime / 2
     }
 
     private void FixedUpdate()
     {
-        beatTicker += 0.0001f;
-
-        if (clap == true)
+        if (coolDown > 0)
         {
-            lastTime = beatTicker;
-            beatTicker = 0;
+            coolDown -= (bpm / 60) * Time.deltaTime;
+            clap = false;
         }
+
+        beatTicker += 0.0001f;
     }
 }

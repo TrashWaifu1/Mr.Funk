@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070e948947affe6499687ad3e4d0d9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 100
   beatTracker: {fileID: 885665832}
   maxMillCount: 0.25
   pefectMillCount: 0.04
@@ -414,7 +414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1339963962
 SpriteRenderer:
   m_ObjectHideFlags: 0
