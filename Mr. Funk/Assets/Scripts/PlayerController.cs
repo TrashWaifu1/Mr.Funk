@@ -14,9 +14,16 @@ public class PlayerController : MonoBehaviour
     public float funkMeater;
 
     private Vector3 pos;
-    public float millCounter;
-    private Rigidbody2D rb;
     private Vector2 velocity;
+    private Rigidbody2D rb;
+    private float millCounter;
+    private float laserTiker;
+    private float punchCoolDown;
+    private float maxFunk = 1000;
+    private float failAmount = 50;
+    private float drain = 30;
+    private float laserTime;
+    private float laserCoolDown;
     private bool atDestination = true;
     private bool fail;
     private bool powerUp;
@@ -33,13 +40,15 @@ public class PlayerController : MonoBehaviour
     {
         moveCache = emptyCache;
 
-        if (funkMeater != 1000)
+        if (funkMeater != maxFunk)
         {
-            funkMeater -= 100 * Time.deltaTime;
-            powerUp = true;
+            funkMeater -= drain * Time.deltaTime;
         }
+        else
+            powerUp = true;
 
-            
+        if (punchCoolDown > 0)
+            punchCoolDown -= 1 * Time.deltaTime;
 
         bool clap = beatTracker.GetComponent<BeatTracker>().go;
 
@@ -48,57 +57,207 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
             moveCache.moveType = "vertical";
-            moveCache.direction = 1.5f;
+            moveCache.direction = 1;
             Move();
             moved = true;
             Perfect();
         }
 
         if (Input.GetKey(KeyCode.W) && !clap && !powerUp)
-            funkMeater -= 100;
+            funkMeater -= failAmount;
 
         else if (Input.GetKeyDown(KeyCode.S) && !moved && clap)
         {
             rb.velocity = Vector3.zero;
             moveCache.moveType = "vertical";
-            moveCache.direction = -1.5f;
+            moveCache.direction = -1;
             Move();
             moved = true;
             Perfect();
         }
 
         if (Input.GetKey(KeyCode.S) && !clap && !powerUp)
-            funkMeater -= 100;
+            funkMeater -= failAmount;
 
         else if (Input.GetKeyDown(KeyCode.D) && !moved && clap)
         {
             rb.velocity = Vector3.zero;
             moveCache.moveType = "horizontal";
-            moveCache.direction = 1.5f;
+            moveCache.direction = 1;
             Move();
             moved = true;
             Perfect();
         }
 
         if (Input.GetKey(KeyCode.D) && !clap && !powerUp)
-            funkMeater -= 100;
+            funkMeater -= failAmount;
 
 
         else if (Input.GetKeyDown(KeyCode.A) && !moved && clap)
         {
             rb.velocity = Vector3.zero;
             moveCache.moveType = "horizontal";
-            moveCache.direction = -1.5f;
+            moveCache.direction = -1;
             Move();
             moved = true;
             Perfect();
         }
 
         if (Input.GetKey(KeyCode.A) && !clap && !powerUp)
-            funkMeater -= 100;
-            
+            funkMeater -= failAmount;
 
-        funkMeater = Mathf.Clamp(funkMeater, 0, 1000);
+        funkMeater = Mathf.Clamp(funkMeater, 0, maxFunk);
+
+        //lasers
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                // laser right
+                if (Physics2D.Raycast(transform.position, Vector2.right, 6))
+                    if (Physics2D.Raycast(transform.position, Vector2.right, 6).transform.tag == "enemy")
+                    {
+                        GameObject hit = Physics2D.Raycast(transform.position, Vector2.right, 6).transform.gameObject;
+
+                        if (powerUp)
+                        {
+                            hit.GetComponent<EnemyController>().health--;
+                            hit.GetComponent<EnemyController>().damage = true;
+                            punchCoolDown = 0.3f;
+                            powerUp = false;
+                            funkMeater = 0;
+                        }
+                        else
+                        {
+                            hit.GetComponent<EnemyController>().health -= 0.5f * Time.deltaTime;
+                            hit.GetComponent<EnemyController>().damage = true;
+                        }
+
+                    }
+            }
+
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                // laser left
+            }
+
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                // laser down
+            }
+
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                // laser up
+            }
+        }
+        // punch
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.RightArrow) && punchCoolDown <= 0)
+            {
+                // punch right
+                if (Physics2D.Raycast(transform.position, Vector2.right, 1))
+                    if (Physics2D.Raycast(transform.position, Vector2.right, 1).transform.tag == "enemy")
+                    {
+                        GameObject hit = Physics2D.Raycast(transform.position, Vector2.right, 1).transform.gameObject;
+
+                        if (powerUp)
+                        {
+                            hit.GetComponent<EnemyController>().health -= 5;
+                            hit.GetComponent<EnemyController>().damage = true;
+                            punchCoolDown = 0.3f;
+                            powerUp = false;
+                            funkMeater = 0;
+                        }
+                        else
+                        {
+                            hit.GetComponent<EnemyController>().health--;
+                            hit.GetComponent<EnemyController>().damage = true;
+                            punchCoolDown = 0.3f;
+                        }
+                        
+                    }
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && punchCoolDown <= 0)
+            {
+                // puch left
+                if (Physics2D.Raycast(transform.position, Vector2.left, 1))
+                    if (Physics2D.Raycast(transform.position, Vector2.left, 1).transform.tag == "enemy")
+                    {
+                        GameObject hit = Physics2D.Raycast(transform.position, Vector2.left, 1).transform.gameObject;
+
+                        if (powerUp)
+                        {
+                            hit.GetComponent<EnemyController>().health -= 5;
+                            hit.GetComponent<EnemyController>().damage = true;
+                            punchCoolDown = 0.3f;
+                            powerUp = false;
+                            funkMeater = 0;
+                        }
+                        else
+                        {
+                            hit.GetComponent<EnemyController>().health--;
+                            hit.GetComponent<EnemyController>().damage = true;
+                            punchCoolDown = 0.3f;
+                        }
+
+                    }
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow) && punchCoolDown <= 0)
+            {
+                // punch down
+                if (Physics2D.Raycast(transform.position, Vector2.down, 1))
+                    if (Physics2D.Raycast(transform.position, Vector2.down, 1).transform.tag == "enemy")
+                    {
+                        GameObject hit = Physics2D.Raycast(transform.position, Vector2.down, 1).transform.gameObject;
+
+                        if (powerUp)
+                        {
+                            hit.GetComponent<EnemyController>().health -= 5;
+                            hit.GetComponent<EnemyController>().damage = true;
+                            punchCoolDown = 0.3f;
+                            powerUp = false;
+                            funkMeater = 0;
+                        }
+                        else
+                        {
+                            hit.GetComponent<EnemyController>().health--;
+                            hit.GetComponent<EnemyController>().damage = true;
+                            punchCoolDown = 0.3f;
+                        }
+
+                    }
+            }
+
+            if (Input.GetKeyDown(KeyCode.UpArrow) && punchCoolDown <= 0)
+            {
+                // punch up
+                if (Physics2D.Raycast(transform.position, Vector2.up, 1))
+                    if (Physics2D.Raycast(transform.position, Vector2.up, 1).transform.tag == "enemy")
+                    {
+                        GameObject hit = Physics2D.Raycast(transform.position, Vector2.up, 1).transform.gameObject;
+
+                        if (powerUp)
+                        {
+                            hit.GetComponent<EnemyController>().health -= 5;
+                            hit.GetComponent<EnemyController>().damage = true;
+                            punchCoolDown = 0.3f;
+                            powerUp = false;
+                            funkMeater = 0;
+                        }
+                        else
+                        {
+                            hit.GetComponent<EnemyController>().health--;
+                            hit.GetComponent<EnemyController>().damage = true;
+                            punchCoolDown = 0.3f;
+                        }
+
+                    }
+            }
+        }
     }
 
     private void FixedUpdate()
