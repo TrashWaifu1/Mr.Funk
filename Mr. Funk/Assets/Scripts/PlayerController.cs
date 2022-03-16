@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 velocity;
     private bool atDestination = true;
     private bool fail;
+    private bool powerUp;
 
     void Start()
     {
@@ -32,8 +33,13 @@ public class PlayerController : MonoBehaviour
     {
         moveCache = emptyCache;
 
-        if (funkMeater > 0)
+        if (funkMeater != 1000)
+        {
             funkMeater -= 100 * Time.deltaTime;
+            powerUp = true;
+        }
+
+            
 
         bool clap = beatTracker.GetComponent<BeatTracker>().go;
 
@@ -47,8 +53,9 @@ public class PlayerController : MonoBehaviour
             moved = true;
             Perfect();
         }
-        else if (Input.GetKeyDown(KeyCode.W))
-            fail = true;
+
+        if (Input.GetKey(KeyCode.W) && !clap && !powerUp)
+            funkMeater -= 100;
 
         else if (Input.GetKeyDown(KeyCode.S) && !moved && clap)
         {
@@ -59,8 +66,9 @@ public class PlayerController : MonoBehaviour
             moved = true;
             Perfect();
         }
-        else if (Input.GetKeyDown(KeyCode.S))
-            fail = true;
+
+        if (Input.GetKey(KeyCode.S) && !clap && !powerUp)
+            funkMeater -= 100;
 
         else if (Input.GetKeyDown(KeyCode.D) && !moved && clap)
         {
@@ -71,8 +79,10 @@ public class PlayerController : MonoBehaviour
             moved = true;
             Perfect();
         }
-        else if (Input.GetKeyDown(KeyCode.D))
-            fail = true;
+
+        if (Input.GetKey(KeyCode.D) && !clap && !powerUp)
+            funkMeater -= 100;
+
 
         else if (Input.GetKeyDown(KeyCode.A) && !moved && clap)
         {
@@ -83,17 +93,12 @@ public class PlayerController : MonoBehaviour
             moved = true;
             Perfect();
         }
-        else if (Input.GetKeyDown(KeyCode.A))
-            fail = true;
 
-        if (!fail && clap)
-        {
-            if (!moved)
-            {
-                Good();
-                moved = true;
-            }
-        }
+        if (Input.GetKey(KeyCode.A) && !clap && !powerUp)
+            funkMeater -= 100;
+            
+
+        funkMeater = Mathf.Clamp(funkMeater, 0, 1000);
     }
 
     private void FixedUpdate()
@@ -126,14 +131,9 @@ public class PlayerController : MonoBehaviour
         atDestination = false;
     }
 
-    private void Good()
-    {
-        funkMeater += 100;
-    }
-
     private void Perfect()
     {
-            funkMeater += 300; 
+            funkMeater += 120; 
     }
 
     public class MoveCache
