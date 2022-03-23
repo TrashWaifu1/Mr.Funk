@@ -15,16 +15,19 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 pos;
     private Vector2 velocity;
-    private Vector2 laserDir = Vector2.zero;
+
+    public Vector2 laserDir = Vector2.zero;
+
     private Rigidbody2D rb;
     private float millCounter;
-    private float laserTicker;
     private float punchCoolDown;
     private float maxFunk = 1000;
     private float failAmount = 50;
     private float drain = 30;
-    private float laserTime;
-    private float laserCoolDown;
+
+    public float laserTime;
+    public float laserCoolDown;
+
     private bool atDestination = true;
     private bool fail;
     private bool powerUp;
@@ -35,14 +38,19 @@ public class PlayerController : MonoBehaviour
         emptyCache.moveType = "";
         rb = GetComponent<Rigidbody2D>();
         pos = transform.position;
+
+        GetComponent<LineRenderer>().endWidth = 0;
+        GetComponent<LineRenderer>().startWidth = 0;
+        GetComponent<LineRenderer>().startColor = Color.blue;
     }
 
     void Update()
     {
         moveCache = emptyCache;
+        GetComponent<LineRenderer>().SetPosition(0, transform.position);
 
-        if (laserTicker > 0)
-            laserTicker -= 1 * Time.deltaTime;
+        if (laserTime > 0)
+            laserTime -= 1 * Time.deltaTime;
 
         if (laserCoolDown > 0)
             laserCoolDown -= 1 * Time.deltaTime;
@@ -59,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
         bool clap = beatTracker.GetComponent<BeatTracker>().go;
 
-
+        #region Movement&FunckFail
         if (Input.GetKeyDown(KeyCode.W) && !moved && clap)
         {
             rb.velocity = Vector3.zero;
@@ -114,27 +122,25 @@ public class PlayerController : MonoBehaviour
             funkMeater -= failAmount;
 
         funkMeater = Mathf.Clamp(funkMeater, 0, maxFunk);
-
-        //lasers
+        #endregion
+        #region Lasers
         if (Input.GetKey(KeyCode.Keypad0))
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 // laser right
-                if (Physics2D.Raycast(transform.position, Vector2.right, 6) && laserCoolDown > 0 && laserDir == Vector2.zero)
-                    if (Physics2D.Raycast(transform.position, Vector2.right, 6).transform.tag == "enemy")
+                if (laserDir == Vector2.zero)
+                {
+                    if (powerUp)
                     {
-                        if (powerUp)
-                        {
 
-                        }
-                        else
-                        {
-                            laserDir = Vector2.right;
-                            laserTime = 1;
-                            Debug.Log("laser");
-                        }
                     }
+                    else
+                    {
+                        laserDir = Vector2.right;
+                        laserTime = 1;
+                    }
+                }
             }
 
             if (Input.GetKey(KeyCode.LeftArrow))
@@ -151,8 +157,10 @@ public class PlayerController : MonoBehaviour
             {
                 // laser up
             }
+            
         }
-        // punch
+        #endregion
+        #region Punch
         else
         {
             if (Input.GetKeyDown(KeyCode.RightArrow) && punchCoolDown <= 0)
@@ -259,25 +267,50 @@ public class PlayerController : MonoBehaviour
                     }
             }
         }
-
+        #endregion
+        #region LaserTicker
         if (laserDir != Vector2.zero)
         {
             if (laserTime > 0)
             {
-                GameObject hit = Physics2D.Raycast(transform.position, laserDir, 6).transform.gameObject;
+                
 
-                GetComponent<LineRenderer>().SetPosition(0, transform.position);
-                GetComponent<LineRenderer>().SetPosition(1, hit.transform.position);
-                hit.GetComponent<EnemyController>().health -= 0.5f * Time.deltaTime;
-                hit.GetComponent<EnemyController>().damage = true;
-                Debug.Log("lasering");
+                GetComponent<LineRenderer>().endWidth = 0.3f;
+                GetComponent<LineRenderer>().startWidth = 0.3f;
+
+                if (Physics2D.Raycast(transform.position, laserDir, 6))
+                {
+                    GameObject hit = Physics2D.Raycast(transform.position, laserDir, 6).transform.gameObject;
+                    GetComponent<LineRenderer>().SetPosition(1, hit.transform.position);
+
+                    if (Physics2D.Raycast(transform.position, laserDir, 6).transform.tag == "enemy")
+                    {
+                        GetComponent<LineRenderer>().SetPosition(1, hit.transform.position);
+                        hit.GetComponent<EnemyController>().health -= 0.5f * Time.deltaTime;
+                        hit.GetComponent<EnemyController>().damage = true;
+                    }
+                }
+                else
+                {
+                    GetComponent<LineRenderer>().SetPosition(1, transform.position + new Vector3(6, 0));
+                    Debug.Log("miss");
+                }
+                    
             }
-            else
-                laserCoolDown = 0.3f;
+            else if (laserCoolDown > 0)
+            {
+                laserCoolDown = 1;
+            }
 
-            if (laserTicker <= 0 && laserCoolDown > 0)
+            if (laserTime <= 0 && laserCoolDown <= 0)
+            {
                 laserDir = Vector2.zero;
+                GetComponent<LineRenderer>().endWidth = 0;
+                GetComponent<LineRenderer>().startWidth = 0;
+            }
+                
         }
+        #endregion
     }
 
     private void FixedUpdate()

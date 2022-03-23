@@ -455,6 +455,9 @@ MonoBehaviour:
   pefectMillCount: 0.04
   moved: 0
   funkMeater: 0
+  laserDir: {x: 0, y: 0}
+  laserTime: 0
+  laserCoolDown: 0
 --- !u!212 &1103215760
 SpriteRenderer:
   m_ObjectHideFlags: 0
