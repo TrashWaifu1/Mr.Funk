@@ -12,24 +12,19 @@ public class PlayerController : MonoBehaviour
     public MoveCache emptyCache;
     public MoveCache moveCache;
     public float funkMeater;
+    public float laserDamge = 0.5f;
 
     private Vector3 pos;
     private Vector2 velocity;
-
-    public Vector2 laserDir = Vector2.zero;
-
+    private Vector2 laserDir = Vector2.zero;
     private Rigidbody2D rb;
-    private float millCounter;
     private float punchCoolDown;
-    private float maxFunk = 1000;
-    private float failAmount = 50;
-    private float drain = 30;
-
-    public float laserTime;
-    public float laserCoolDown;
-
+    readonly float maxFunk = 1000;
+    readonly float failAmount = 50;
+    readonly float drain = 30;
+    private float laserTime;
+    private float laserCoolDown;
     private bool atDestination = true;
-    private bool fail;
     private bool powerUp;
 
     void Start()
@@ -41,7 +36,6 @@ public class PlayerController : MonoBehaviour
 
         GetComponent<LineRenderer>().endWidth = 0;
         GetComponent<LineRenderer>().startWidth = 0;
-        GetComponent<LineRenderer>().startColor = Color.blue;
     }
 
     void Update()
@@ -133,7 +127,8 @@ public class PlayerController : MonoBehaviour
                 {
                     if (powerUp)
                     {
-
+                        GetComponent<CircleCollider2D>().enabled = true;
+                        laserDir = new Vector2(1, 1);
                     }
                     else
                     {
@@ -146,16 +141,55 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 // laser left
+                if (laserDir == Vector2.zero)
+                {
+                    if (powerUp)
+                    {
+                        GetComponent<CircleCollider2D>().enabled = true;
+                        laserDir = new Vector2(1, 1);
+                    }
+                    else
+                    {
+                        laserDir = Vector2.left;
+                        laserTime = 1;
+                    }
+                }
             }
 
             if (Input.GetKey(KeyCode.DownArrow))
             {
                 // laser down
+                if (laserDir == Vector2.zero)
+                {
+                    if (powerUp)
+                    {
+                        GetComponent<CircleCollider2D>().enabled = true;
+                        laserDir = new Vector2(1, 1);
+                    }
+                    else
+                    {
+                        laserDir = Vector2.down;
+                        laserTime = 1;
+                    }
+                }
             }
 
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 // laser up
+                if (laserDir == Vector2.zero)
+                {
+                    if (powerUp)
+                    {
+                        GetComponent<CircleCollider2D>().enabled = true;
+                        laserDir = new Vector2(1, 1);
+                    }
+                    else
+                    {
+                        laserDir = Vector2.up;
+                        laserTime = 1;
+                    }
+                }
             }
             
         }
@@ -273,10 +307,8 @@ public class PlayerController : MonoBehaviour
         {
             if (laserTime > 0)
             {
-                
-
-                GetComponent<LineRenderer>().endWidth = 0.3f;
-                GetComponent<LineRenderer>().startWidth = 0.3f;
+                GetComponent<LineRenderer>().endWidth = 0.1f;
+                GetComponent<LineRenderer>().startWidth = 0.1f;
 
                 if (Physics2D.Raycast(transform.position, laserDir, 6))
                 {
@@ -286,14 +318,13 @@ public class PlayerController : MonoBehaviour
                     if (Physics2D.Raycast(transform.position, laserDir, 6).transform.tag == "enemy")
                     {
                         GetComponent<LineRenderer>().SetPosition(1, hit.transform.position);
-                        hit.GetComponent<EnemyController>().health -= 0.5f * Time.deltaTime;
+                        hit.GetComponent<EnemyController>().health -= laserDamge * Time.deltaTime;
                         hit.GetComponent<EnemyController>().damage = true;
                     }
                 }
                 else
                 {
-                    GetComponent<LineRenderer>().SetPosition(1, transform.position + new Vector3(6, 0));
-                    Debug.Log("miss");
+                    GetComponent<LineRenderer>().SetPosition(1, transform.position + new Vector3(laserDir.x, laserDir.y, 0) * 6);
                 }
                     
             }
@@ -345,12 +376,33 @@ public class PlayerController : MonoBehaviour
 
     private void Perfect()
     {
-            funkMeater += 120; 
+        funkMeater += 120; 
     }
 
     public class MoveCache
     {
         public string moveType = "";
         public float direction = 0;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "enemy")
+        {
+            Debug.Log("test");
+            collision.GetComponent<EnemyController>().health -= laserDamge;
+            collision.GetComponent<EnemyController>().damage = true;
+            laserDir = Vector2.zero;
+            powerUp = false;
+            funkMeater = 0;
+            GetComponent<CircleCollider2D>().enabled = false;
+        }
+        else
+        {
+            laserDir = Vector2.zero;
+            powerUp = false;
+            funkMeater = 0;
+            GetComponent<CircleCollider2D>().enabled = false;
+        }
     }
 }
