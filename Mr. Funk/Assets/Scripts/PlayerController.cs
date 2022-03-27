@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public MoveCache moveCache;
     public float funkMeater;
     public float laserDamge = 0.5f;
+    public GameObject bulletMass;
 
     private Vector3 pos;
     private Vector2 velocity;
@@ -26,6 +27,8 @@ public class PlayerController : MonoBehaviour
     private float laserCoolDown;
     private bool atDestination = true;
     private bool powerUp;
+    private float bulletLife;
+    private GameObject bulletChash;
 
     void Start()
     {
@@ -40,6 +43,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (bulletLife > 0)
+        {
+            bulletLife -= 1 * Time.deltaTime;
+        }
+        else
+        {
+            Destroy(bulletChash);
+        }
+
         moveCache = emptyCache;
         GetComponent<LineRenderer>().SetPosition(0, transform.position);
 
@@ -127,8 +139,10 @@ public class PlayerController : MonoBehaviour
                 {
                     if (powerUp)
                     {
-                        GetComponent<CircleCollider2D>().enabled = true;
-                        laserDir = new Vector2(1, 1);
+                        bulletChash = Instantiate(bulletMass, transform.transform);
+                        bulletLife = 2;
+                        powerUp = false;
+                        funkMeater = 0;
                     }
                     else
                     {
@@ -145,8 +159,10 @@ public class PlayerController : MonoBehaviour
                 {
                     if (powerUp)
                     {
-                        GetComponent<CircleCollider2D>().enabled = true;
-                        laserDir = new Vector2(1, 1);
+                        bulletChash = Instantiate(bulletMass);
+                        bulletLife = 2;
+                        powerUp = false;
+                        funkMeater = 0;
                     }
                     else
                     {
@@ -163,8 +179,10 @@ public class PlayerController : MonoBehaviour
                 {
                     if (powerUp)
                     {
-                        GetComponent<CircleCollider2D>().enabled = true;
-                        laserDir = new Vector2(1, 1);
+                        bulletChash = Instantiate(bulletMass);
+                        bulletLife = 2;
+                        powerUp = false;
+                        funkMeater = 0;
                     }
                     else
                     {
@@ -181,8 +199,10 @@ public class PlayerController : MonoBehaviour
                 {
                     if (powerUp)
                     {
-                        GetComponent<CircleCollider2D>().enabled = true;
-                        laserDir = new Vector2(1, 1);
+                        bulletChash = Instantiate(bulletMass);
+                        bulletLife = 2;
+                        powerUp = false;
+                        funkMeater = 0;
                     }
                     else
                     {
