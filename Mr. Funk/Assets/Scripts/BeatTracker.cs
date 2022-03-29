@@ -7,7 +7,6 @@ public class BeatTracker : MonoBehaviour
     public float bpm = 100;
     public bool clap;
     public bool go;
-    public GameObject thing;
     public float beatTicker;
 
     private float coolDown;
@@ -43,13 +42,9 @@ public class BeatTracker : MonoBehaviour
 
         if (clap)
         {
-            thing.SetActive(true);
-            
             if (go)
                 clapbetween = true;
         }
-        else
-            thing.SetActive(false);
 
         if (beatTicker < (lastTime / 2 + lastTime / 4))
         {
