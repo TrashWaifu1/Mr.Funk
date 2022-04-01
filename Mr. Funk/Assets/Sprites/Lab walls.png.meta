@@ -44,10 +44,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -576,8 +576,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Lab walls_7: 560370920
-      Lab walls_20: 256341601
+      Lab walls_6: -1627857772
+      Lab walls_8: -558910647
       Lab walls_15: 1091372028
       Lab walls_5: -145172210
       Lab walls_9: -1943821764
@@ -596,8 +596,8 @@ TextureImporter:
       Lab walls_3: 1140289251
       Lab walls_4: -349770805
       Lab walls_11: 1193729806
-      Lab walls_8: -558910647
-      Lab walls_6: -1627857772
+      Lab walls_20: 256341601
+      Lab walls_7: 560370920
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
