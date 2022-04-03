@@ -6,14 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 3;
     public GameObject beatTracker;
-    public float maxMillCount = 0.250f;
-    public float pefectMillCount = 0.040f;
     public bool moved;
     public MoveCache emptyCache;
     public MoveCache moveCache;
     public float funkMeater;
     public float laserDamge = 0.5f;
     public GameObject bulletMass;
+    public RectTransform imageMask;
 
     private Vector3 pos;
     private Vector2 velocity;
@@ -43,6 +42,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        imageMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Clamp(funkMeater / 4.5f, 10, 230));
+        imageMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Clamp(funkMeater / 4.5f, 10, 230));
+
         if (bulletLife > 0)
         {
             bulletLife -= 1 * Time.deltaTime;
