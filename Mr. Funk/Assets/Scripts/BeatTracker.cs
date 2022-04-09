@@ -19,15 +19,19 @@ public class BeatTracker : MonoBehaviour
     private bool clapbetween;
     private float fxCoolDown;
     private bool fxOnce;
+    private ChromaticAberration chromAberFunk;
+    private LensDistortion lensDistorFunk;
     private ChromaticAberration chromAber;
     private LensDistortion lensDistor;
     private ColorGrading hue;
 
     private void Start()
     {
-        funkVol.GetComponent<PostProcessVolume>().profile.TryGetSettings(out chromAber);
         funkVol.GetComponent<PostProcessVolume>().profile.TryGetSettings(out hue);
+        funkVol.GetComponent<PostProcessVolume>().profile.TryGetSettings(out chromAberFunk);
+        funkVol.GetComponent<PostProcessVolume>().profile.TryGetSettings(out lensDistorFunk);
 
+        labVol.GetComponent<PostProcessVolume>().profile.TryGetSettings(out chromAber);
         labVol.GetComponent<PostProcessVolume>().profile.TryGetSettings(out lensDistor);
     }
 
@@ -38,15 +42,24 @@ public class BeatTracker : MonoBehaviour
             lastTime = beatTicker;
             beatTicker = 0;
             fxCoolDown = fxSpeed;
-
+            lensDistor.intensity.value = 20;
+            chromAber.intensity.value = 0.5f;
+            lensDistorFunk.intensity.value = 20;
+            //chromAberFunk.intensity.value = 0.5f;
             TileStep();
         }
 
-        if (chromAber.intensity.value == 1)
+        if (lensDistor.intensity.value > 0)
         {
-            chromAber.intensity.value = 0;
-            lensDistor.intensity.value = 0;
-        }
+            lensDistor.intensity.value -= 40 * Time.deltaTime;
+            lensDistorFunk.intensity.value -= 40 * Time.deltaTime;
+        }  
+
+        if (chromAber.intensity.value > 0)
+        {
+            chromAber.intensity.value -= 0.7f * Time.deltaTime;
+            //chromAberFunk.intensity.value -= 0.5f * Time.deltaTime;
+        } 
 
         if (coolDown <= 0)
         {
