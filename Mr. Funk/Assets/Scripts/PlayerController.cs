@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float laserDamge = 0.5f;
     public GameObject bulletMass;
     public RectTransform imageMask;
+    public GameObject circleLaserFX;
 
     private Vector3 pos;
     private Vector2 velocity;
@@ -131,98 +132,14 @@ public class PlayerController : MonoBehaviour
 
         funkMeater = Mathf.Clamp(funkMeater, 0, maxFunk);
         #endregion
-        #region Lasers
+        #region Special attack
         if (Input.GetKey(KeyCode.Keypad0))
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                // laser right
-                if (laserDir == Vector2.zero)
-                {
-                    if (powerUp)
-                    {
-                        bulletChash = Instantiate(bulletMass, transform.transform);
-                        bulletLife = 2;
-                        powerUp = false;
-                        funkMeater = 0;
-                    }
-                    else
-                    {
-                        laserDir = Vector2.right;
-                        laserTime = 1;
-                    }
-                }
-            }
-
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                // laser left
-                if (laserDir == Vector2.zero)
-                {
-                    if (powerUp)
-                    {
-                        bulletChash = Instantiate(bulletMass);
-                        bulletLife = 2;
-                        powerUp = false;
-                        funkMeater = 0;
-                    }
-                    else
-                    {
-                        laserDir = Vector2.left;
-                        laserTime = 1;
-                    }
-                }
-            }
-
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                // laser down
-                if (laserDir == Vector2.zero)
-                {
-                    if (powerUp)
-                    {
-                        bulletChash = Instantiate(bulletMass);
-                        bulletLife = 2;
-                        powerUp = false;
-                        funkMeater = 0;
-                    }
-                    else
-                    {
-                        laserDir = Vector2.down;
-                        laserTime = 1;
-                    }
-                }
-            }
-
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                // laser up
-                if (laserDir == Vector2.zero)
-                {
-                    if (powerUp)
-                    {
-                        bulletChash = Instantiate(bulletMass);
-                        bulletLife = 2;
-                        powerUp = false;
-                        funkMeater = 0;
-                    }
-                    else
-                    {
-                        laserDir = Vector2.up;
-                        laserTime = 1;
-                    }
-                }
-            }
-            
-        }
-        #endregion
-        #region Punch
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.RightArrow) && punchCoolDown <= 0)
-            {
                 // punch right
                 if (Physics2D.Raycast(transform.position, Vector2.right, 1))
+                {
                     if (Physics2D.Raycast(transform.position, Vector2.right, 1).transform.tag == "enemy")
                     {
                         GameObject hit = Physics2D.Raycast(transform.position, Vector2.right, 1).transform.gameObject;
@@ -235,20 +152,27 @@ public class PlayerController : MonoBehaviour
                             powerUp = false;
                             funkMeater = 0;
                         }
-                        else
-                        {
-                            hit.GetComponent<EnemyController>().health--;
-                            hit.GetComponent<EnemyController>().damage = true;
-                            punchCoolDown = 0.3f;
-                        }
-                        
                     }
+                }
+                else
+                {
+                    // laser right
+                    if (laserDir == Vector2.zero)
+                    {
+                        if (powerUp)
+                        {
+                            GetComponent<CircleCollider2D>().enabled = true;
+                            laserDir = new Vector2(1, 1);
+                        }
+                    }
+                }
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && punchCoolDown <= 0)
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
                 // puch left
                 if (Physics2D.Raycast(transform.position, Vector2.left, 1))
+                {
                     if (Physics2D.Raycast(transform.position, Vector2.left, 1).transform.tag == "enemy")
                     {
                         GameObject hit = Physics2D.Raycast(transform.position, Vector2.left, 1).transform.gameObject;
@@ -261,20 +185,27 @@ public class PlayerController : MonoBehaviour
                             powerUp = false;
                             funkMeater = 0;
                         }
-                        else
-                        {
-                            hit.GetComponent<EnemyController>().health--;
-                            hit.GetComponent<EnemyController>().damage = true;
-                            punchCoolDown = 0.3f;
-                        }
-
                     }
+                }
+                else
+                {
+                    // laser left
+                    if (laserDir == Vector2.zero)
+                    {
+                        if (powerUp)
+                        {
+                            GetComponent<CircleCollider2D>().enabled = true;
+                            laserDir = new Vector2(1, 1);
+                        }
+                    }
+                }
             }
 
-            if (Input.GetKeyDown(KeyCode.DownArrow) && punchCoolDown <= 0)
+            if (Input.GetKey(KeyCode.DownArrow))
             {
                 // punch down
                 if (Physics2D.Raycast(transform.position, Vector2.down, 1))
+                {
                     if (Physics2D.Raycast(transform.position, Vector2.down, 1).transform.tag == "enemy")
                     {
                         GameObject hit = Physics2D.Raycast(transform.position, Vector2.down, 1).transform.gameObject;
@@ -287,20 +218,27 @@ public class PlayerController : MonoBehaviour
                             powerUp = false;
                             funkMeater = 0;
                         }
-                        else
-                        {
-                            hit.GetComponent<EnemyController>().health--;
-                            hit.GetComponent<EnemyController>().damage = true;
-                            punchCoolDown = 0.3f;
-                        }
-
                     }
+                }
+                else
+                {
+                    // laser down
+                    if (laserDir == Vector2.zero)
+                    {
+                        if (powerUp)
+                        {
+                            GetComponent<CircleCollider2D>().enabled = true;
+                            laserDir = new Vector2(1, 1);
+                        }
+                    }
+                }
             }
 
-            if (Input.GetKeyDown(KeyCode.UpArrow) && punchCoolDown <= 0)
+            if (Input.GetKey(KeyCode.UpArrow))
             {
                 // punch up
                 if (Physics2D.Raycast(transform.position, Vector2.up, 1))
+                {
                     if (Physics2D.Raycast(transform.position, Vector2.up, 1).transform.tag == "enemy")
                     {
                         GameObject hit = Physics2D.Raycast(transform.position, Vector2.up, 1).transform.gameObject;
@@ -313,19 +251,126 @@ public class PlayerController : MonoBehaviour
                             powerUp = false;
                             funkMeater = 0;
                         }
-                        else
-                        {
-                            hit.GetComponent<EnemyController>().health--;
-                            hit.GetComponent<EnemyController>().damage = true;
-                            punchCoolDown = 0.3f;
-                        }
-
                     }
+                }
+                else
+                {
+                    // laser up
+                    if (laserDir == Vector2.zero)
+                    {
+                        if (powerUp)
+                        {
+                            GetComponent<CircleCollider2D>().enabled = true;
+                            laserDir = new Vector2(1, 1);
+                        }
+                    }
+                }
+            }
+            
+        }
+        #endregion
+        #region Normal attack
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.RightArrow) && punchCoolDown <= 0)
+            {
+                // punch right
+                if (Physics2D.Raycast(transform.position, Vector2.right, 1))
+                {
+                    if (Physics2D.Raycast(transform.position, Vector2.right, 1).transform.tag == "enemy")
+                    {
+                        GameObject hit = Physics2D.Raycast(transform.position, Vector2.right, 1).transform.gameObject;
+                        hit.GetComponent<EnemyController>().health--;
+                        hit.GetComponent<EnemyController>().damage = true;
+                        punchCoolDown = 0.3f;
+                    }
+                }
+                else
+                {
+                    // laser right
+                    if (laserDir == Vector2.zero)
+                    {
+                        laserDir = Vector2.right;
+                        laserTime = 1;
+                    }
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && punchCoolDown <= 0)
+            {
+                // puch left
+                if (Physics2D.Raycast(transform.position, Vector2.left, 1))
+                {
+                    if (Physics2D.Raycast(transform.position, Vector2.left, 1).transform.tag == "enemy")
+                    {
+                        GameObject hit = Physics2D.Raycast(transform.position, Vector2.left, 1).transform.gameObject;
+                        hit.GetComponent<EnemyController>().health--;
+                        hit.GetComponent<EnemyController>().damage = true;
+                        punchCoolDown = 0.3f;
+                    }
+                }
+                else
+                {
+                    // laser left
+                    if (laserDir == Vector2.zero)
+                    {
+                        laserDir = Vector2.left;
+                        laserTime = 1;
+                    }
+                }    
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow) && punchCoolDown <= 0)
+            {
+                // punch down
+                if (Physics2D.Raycast(transform.position, Vector2.down, 1))
+                {
+                    if (Physics2D.Raycast(transform.position, Vector2.down, 1).transform.tag == "enemy")
+                    {
+                        GameObject hit = Physics2D.Raycast(transform.position, Vector2.down, 1).transform.gameObject;
+                        hit.GetComponent<EnemyController>().health--;
+                        hit.GetComponent<EnemyController>().damage = true;
+                        punchCoolDown = 0.3f;
+                    }
+                }
+                else
+                {
+                    // laser down
+                    if (laserDir == Vector2.zero)
+                    {
+                        laserDir = Vector2.down;
+                        laserTime = 1;
+                    }
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.UpArrow) && punchCoolDown <= 0)
+            {
+                // punch up
+                if (Physics2D.Raycast(transform.position, Vector2.up, 1))
+                {
+                    if (Physics2D.Raycast(transform.position, Vector2.up, 1).transform.tag == "enemy")
+                    {
+                        GameObject hit = Physics2D.Raycast(transform.position, Vector2.up, 1).transform.gameObject;
+                        hit.GetComponent<EnemyController>().health--;
+                        hit.GetComponent<EnemyController>().damage = true;
+                        punchCoolDown = 0.3f;
+                    }
+                }
+                else
+                {
+                    // laser up
+                    if (laserDir == Vector2.zero)
+                    {
+                        laserDir = Vector2.up;
+                        laserTime = 1;
+                    }
+                }   
             }
         }
         #endregion
         #region LaserTicker
-        if (laserDir != Vector2.zero)
+        if (laserDir != Vector2.zero && laserDir != new Vector2(1, 1))
         {
             if (laserTime > 0)
             {
@@ -334,12 +379,13 @@ public class PlayerController : MonoBehaviour
 
                 if (Physics2D.Raycast(transform.position, laserDir, 6))
                 {
+                    Vector2 hitPoint = Physics2D.Raycast(transform.position, laserDir, 6).point;
                     GameObject hit = Physics2D.Raycast(transform.position, laserDir, 6).transform.gameObject;
-                    GetComponent<LineRenderer>().SetPosition(1, hit.transform.position);
+                    GetComponent<LineRenderer>().SetPosition(1, hitPoint);
 
                     if (Physics2D.Raycast(transform.position, laserDir, 6).transform.tag == "enemy")
                     {
-                        GetComponent<LineRenderer>().SetPosition(1, hit.transform.position);
+                        GetComponent<LineRenderer>().SetPosition(1, hitPoint);
                         hit.GetComponent<EnemyController>().health -= laserDamge * Time.deltaTime;
                         hit.GetComponent<EnemyController>().damage = true;
                     }
@@ -364,6 +410,22 @@ public class PlayerController : MonoBehaviour
                 
         }
         #endregion
+
+        if (laserDir == new Vector2(1, 1))
+        {
+            GetComponent<CircleCollider2D>().radius += 8 * Time.deltaTime;
+            circleLaserFX.transform.localScale += new Vector3(16 * Time.deltaTime, 16 * Time.deltaTime);
+        }
+
+        if (GetComponent<CircleCollider2D>().radius >= 4)
+        {
+            laserDir = Vector2.zero;
+            powerUp = false;
+            funkMeater = 0;
+            GetComponent<CircleCollider2D>().enabled = false;
+            GetComponent<CircleCollider2D>().radius = 0;
+            circleLaserFX.transform.localScale = new Vector3(0, 0, 1);
+        }
     }
 
     private void FixedUpdate()
@@ -379,7 +441,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Move()
-    {
+    {  
         //vertical
         if (moveCache.moveType == "vertical")
         {
@@ -411,20 +473,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "enemy")
         {
-            Debug.Log("test");
             collision.GetComponent<EnemyController>().health -= laserDamge;
             collision.GetComponent<EnemyController>().damage = true;
-            laserDir = Vector2.zero;
-            powerUp = false;
-            funkMeater = 0;
-            GetComponent<CircleCollider2D>().enabled = false;
-        }
-        else
-        {
-            laserDir = Vector2.zero;
-            powerUp = false;
-            funkMeater = 0;
-            GetComponent<CircleCollider2D>().enabled = false;
         }
     }
 }
