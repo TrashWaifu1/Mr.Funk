@@ -195,6 +195,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2100296851492738109, guid: 0ec3c4bf1f7f8ea41a880b761cf6f350, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 49ea41a37e7dc1d449a07e964ccb4741, type: 3}
+    - target: {fileID: 2100296851492738109, guid: 0ec3c4bf1f7f8ea41a880b761cf6f350, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0
       objectReference: {fileID: 0}
@@ -45537,7 +45541,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009501735}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
