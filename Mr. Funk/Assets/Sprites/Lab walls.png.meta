@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -90,6 +90,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -576,8 +588,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Lab walls_6: -1627857772
-      Lab walls_8: -558910647
+      Lab walls_7: 560370920
+      Lab walls_20: 256341601
       Lab walls_15: 1091372028
       Lab walls_5: -145172210
       Lab walls_9: -1943821764
@@ -596,8 +608,8 @@ TextureImporter:
       Lab walls_3: 1140289251
       Lab walls_4: -349770805
       Lab walls_11: 1193729806
-      Lab walls_20: 256341601
-      Lab walls_7: 560370920
+      Lab walls_8: -558910647
+      Lab walls_6: -1627857772
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
