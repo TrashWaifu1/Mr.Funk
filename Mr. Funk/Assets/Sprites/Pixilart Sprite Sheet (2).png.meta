@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 66efaa18a620c794d831351f96455eca
+guid: 3c421cc71cd10964498926266cd18aa9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,23 +100,11 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Lab Counters_0
+      name: Pixilart Sprite Sheet (2)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7afd0ed684955b14aa59d478224a72ca
-      internalID: -1071049029
+      spriteID: 6e79dbe420395bb43844fb4f71f63b72
+      internalID: 819496100
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lab Counters_1
+      name: Pixilart Sprite Sheet (2)_1
       rect:
         serializedVersion: 2
         x: 64
@@ -151,14 +139,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 134276ca893e62e4a808fb0909f1de27
-      internalID: 265164095
+      spriteID: a0ffe8047989b66459822a42125f81e0
+      internalID: -1244959467
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lab Counters_2
+      name: Pixilart Sprite Sheet (2)_2
       rect:
         serializedVersion: 2
         x: 128
@@ -172,14 +160,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c6e890adf35e024cb6da1a502931897
-      internalID: 1369559247
+      spriteID: 4eb6c49aa6c8cc64ab096104072be73f
+      internalID: -431858212
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lab Counters_3
+      name: Pixilart Sprite Sheet (2)_3
       rect:
         serializedVersion: 2
         x: 192
@@ -193,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 822737c1093eae84e9c1ecd9078b2c5f
-      internalID: 1589866654
+      spriteID: 27907af2021aee34fb900986cc49c2e2
+      internalID: 129511413
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lab Counters_4
+      name: Pixilart Sprite Sheet (2)_4
       rect:
         serializedVersion: 2
         x: 256
@@ -214,14 +202,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b75f11e1452871a4f867e52c723ca84b
-      internalID: 1761247559
+      spriteID: ea58a609c5ed34a4e844b21993cd6b8f
+      internalID: -1055715547
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lab Counters_5
+      name: Pixilart Sprite Sheet (2)_5
       rect:
         serializedVersion: 2
         x: 320
@@ -235,14 +223,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09b7e0fd9ba71834590e08eb45146d15
-      internalID: 1651139476
+      spriteID: 9204f0104fb0eb2429689d9090afc77b
+      internalID: -758796934
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lab Counters_6
+      name: Pixilart Sprite Sheet (2)_6
       rect:
         serializedVersion: 2
         x: 384
@@ -256,14 +244,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2a6f2916d54b5942a9ad3d865da253e
-      internalID: 1065282904
+      spriteID: 93baf529d2c2fa14f94323308c7b8c99
+      internalID: 813252739
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lab Counters_7
+      name: Pixilart Sprite Sheet (2)_7
       rect:
         serializedVersion: 2
         x: 448
@@ -277,14 +265,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e712d6f1f5cda3e4797464562a2f6adc
-      internalID: -978690840
+      spriteID: b0d35ad9105459643b3fbe50ca68909a
+      internalID: -638660499
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lab Counters_8
+      name: Pixilart Sprite Sheet (2)_8
       rect:
         serializedVersion: 2
         x: 512
@@ -298,8 +286,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28bc0fb4261eea84a8f101487eb56409
-      internalID: 435574285
+      spriteID: 272eadd14ce5055419426b758bce03d8
+      internalID: -192669245
       vertices: []
       indices: 
       edges: []
@@ -315,15 +303,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Lab Counters_7: -978690840
-      Lab Counters_4: 1761247559
-      Lab Counters_2: 1369559247
-      Lab Counters_1: 265164095
-      Lab Counters_8: 435574285
-      Lab Counters_3: 1589866654
-      Lab Counters_5: 1651139476
-      Lab Counters_0: -1071049029
-      Lab Counters_6: 1065282904
+      Pixilart Sprite Sheet (2)_2: -431858212
+      Pixilart Sprite Sheet (2)_6: 813252739
+      Pixilart Sprite Sheet (2)_3: 129511413
+      Pixilart Sprite Sheet (2)_1: -1244959467
+      Pixilart Sprite Sheet (2)_8: -192669245
+      Pixilart Sprite Sheet (2)_7: -638660499
+      Pixilart Sprite Sheet (2)_0: 819496100
+      Pixilart Sprite Sheet (2)_5: -758796934
+      Pixilart Sprite Sheet (2)_4: -1055715547
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
