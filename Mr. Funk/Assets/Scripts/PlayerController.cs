@@ -43,8 +43,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        imageMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Clamp(funkMeater / 4.5f, 10, 230));
-        imageMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Clamp(funkMeater / 4.5f, 10, 230));
+        imageMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Clamp(funkMeater / 4.5f, 0, 230));
+        imageMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Clamp(funkMeater / 4.5f, 0, 230));
 
         if (bulletLife > 0)
         {

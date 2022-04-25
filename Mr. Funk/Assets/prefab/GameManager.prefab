@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2100296851492738108}
   - component: {fileID: 2100296851492738111}
+  - component: {fileID: 5149407493583846688}
   - component: {fileID: 2100296851492738109}
   m_Layer: 0
   m_Name: GameManager
@@ -48,8 +49,22 @@ MonoBehaviour:
   bpm: 170
   clap: 0
   go: 0
-  thing: {fileID: 0}
   beatTicker: 0
+  funkVol: {fileID: 0}
+  labVol: {fileID: 0}
+  fxSpeed: 0.03
+--- !u!114 &5149407493583846688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100296851492738110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 191d3668f64a1da4e8ed3dc95588b924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &2100296851492738109
 AudioSource:
   m_ObjectHideFlags: 0
