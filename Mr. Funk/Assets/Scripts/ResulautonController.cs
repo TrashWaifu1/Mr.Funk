@@ -9,21 +9,26 @@ public class ResulautonController : MonoBehaviour
 
     private Vector2 setRes;
     // Update is called once per frame
+    private void Awake()
+    {
+        SetRes();
+        camTexture.height = Screen.height;
+        camTexture.width = Screen.width;
+    }
+
     void Update()
     {
-        if (setRes.x != GetRes().x || setRes.y != GetRes().y)
+        if (setRes.x != Screen.width || setRes.y != Screen.height)
         {
-            Vector2 res = GetRes();
-            camTexture.height = Screen.height;
-            camTexture.width = Screen.width;
+            SetRes();
         }
     }
 
-    private Vector2 GetRes()
+    private void SetRes()
     {
-        Vector2 screenResolution = Vector2.zero;
-        screenResolution.x = Screen.width;
-        screenResolution.x = Screen.height;
-        return screenResolution;
+        setRes = new Vector2(Screen.width, Screen.height);
+        
+        funkFeed.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width);
+        funkFeed.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Screen.height);
     }
 }
