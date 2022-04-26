@@ -7,7 +7,7 @@ public class T2Enemy : MonoBehaviour
     public float speed;
     public float stoppingDistance;
     public float retreatDistance;
-    public transform player;
+    public Transform player;
     public GameObject projectile;
 
     private float timeBtwShots;
@@ -18,7 +18,7 @@ public class T2Enemy : MonoBehaviour
     void Start()
     {
 
-        player = GameObject.findGameObjectWithTag("Player").transform;
+        player = GameObject.Find("Player").transform;
         timeBtwShots = startTimeBtwShots;
     
     }
@@ -29,7 +29,7 @@ public class T2Enemy : MonoBehaviour
         
         if(Vector2.Distance(transform.position, player.position)> stoppingDistance)
         {
-            transform.position = Vector2.MoveTorwards(transform.position, player.position, speed * Time.deltaTime);
+            //transform.position = Vector2.MoveTorwards(transform.position, player.position, speed * Time.deltaTime);
         }
 
         else if(Vector2.Distance(transform.position, player.position)> stoppingDistance && Vector2.Distance(transform.position, player.position) > retreatDistance)
