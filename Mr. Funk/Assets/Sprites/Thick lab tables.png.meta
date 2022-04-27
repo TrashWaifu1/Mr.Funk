@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f02f6b66e15b7dc4dbe6fcf66a6c1cb1
+guid: 7eeb6d295b5b2644b8951de83c6ac814
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,7 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Pixilart Sprite Sheet (2) 1_0
+      name: Thick lab tables_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8a18e4de9854b84d8d26c5213b0f029
-      internalID: -1982773350
+      spriteID: 283f24ea6c3f70f499394be6d50a2c3e
+      internalID: -1278504852
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pixilart Sprite Sheet (2) 1_1
+      name: Thick lab tables_1
       rect:
         serializedVersion: 2
         x: 64
@@ -139,8 +139,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08dc031521f34b44a9b4deafc6734a26
-      internalID: 255077980
+      spriteID: 97e3fbf40bf2a2c4ab2825aefab764a9
+      internalID: -1369752320
       vertices: []
       indices: 
       edges: []
@@ -156,8 +156,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Pixilart Sprite Sheet (2) 1_0: -1982773350
-      Pixilart Sprite Sheet (2) 1_1: 255077980
+      Thick lab tables_1: -1369752320
+      Thick lab tables_0: -1278504852
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
