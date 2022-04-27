@@ -79,7 +79,6 @@ public class PlayerController : MonoBehaviour
         #region Movement&FunckFail
         if (Input.GetKeyDown(KeyCode.W) && !moved && clap)
         {
-            rb.velocity = Vector3.zero;
             moveCache.moveType = "vertical";
             moveCache.direction = 1;
             Move();
@@ -92,7 +91,6 @@ public class PlayerController : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.S) && !moved && clap)
         {
-            rb.velocity = Vector3.zero;
             moveCache.moveType = "vertical";
             moveCache.direction = -1;
             Move();
@@ -105,7 +103,6 @@ public class PlayerController : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.D) && !moved && clap)
         {
-            rb.velocity = Vector3.zero;
             moveCache.moveType = "horizontal";
             moveCache.direction = 1;
             Move();
@@ -119,7 +116,6 @@ public class PlayerController : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.A) && !moved && clap)
         {
-            rb.velocity = Vector3.zero;
             moveCache.moveType = "horizontal";
             moveCache.direction = -1;
             Move();
@@ -374,8 +370,8 @@ public class PlayerController : MonoBehaviour
         {
             if (laserTime > 0)
             {
-                GetComponent<LineRenderer>().endWidth = 0.1f;
-                GetComponent<LineRenderer>().startWidth = 0.1f;
+                GetComponent<LineRenderer>().endWidth = 0.5f;
+                GetComponent<LineRenderer>().startWidth = 0.5f;
 
                 if (Physics2D.Raycast(transform.position, laserDir, 6))
                 {
@@ -441,7 +437,9 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Move()
-    {  
+    {
+        rb.velocity = Vector3.zero;
+
         //vertical
         if (moveCache.moveType == "vertical")
         {
