@@ -14,6 +14,8 @@ public class T2Enemy : MonoBehaviour
     private float timeBtwShots;
     public float startTimeBtwShots;
     */
+
+    public GameObject player;
     public float speed;
     public MoveCache moveCache;
     public MoveCache emptyCache;
@@ -21,6 +23,9 @@ public class T2Enemy : MonoBehaviour
     private Vector3 pos;
     private Rigidbody2D rb;
     private bool atDestination = true;
+    private Vector2 targetDir;
+    private GameObject gameManager;
+    private bool clap;
 
     // Start is called before the first frame update
     void Start()
@@ -29,16 +34,92 @@ public class T2Enemy : MonoBehaviour
             player = GameObject.Find("Player").transform;
             timeBtwShots = startTimeBtwShots;
         */
+        gameManager = GameObject.Find("GameManager");
 
         emptyCache = new MoveCache();
         emptyCache.moveType = "";
         rb = GetComponent<Rigidbody2D>();
         pos = transform.position;
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
+        clap = gameManager.GetComponent<BeatTracker>().clap;
+
+        if (clap)
+        {
+            targetDir.x = transform.position.x / player.transform.position.x;
+            targetDir.y = transform.position.y / player.transform.position.y;
+
+            if (Mathf.Abs(targetDir.x) > Mathf.Abs(targetDir.y))
+            {
+                if (targetDir.x == Mathf.Abs(targetDir.x))
+                {
+                    moveCache.moveType = "horizontal";
+                    moveCache.direction = 1;
+                    Move();
+                }
+                else
+                {
+                    moveCache.moveType = "horizontal";
+                    moveCache.direction = -1;
+                    Move();
+                }
+            }
+            else if (Mathf.Abs(targetDir.x) < Mathf.Abs(targetDir.y))
+            {
+                if (targetDir.y == Mathf.Abs(targetDir.y))
+                {
+                    moveCache.moveType = "vertical";
+                    moveCache.direction = 1;
+                    Move();
+                }
+                else
+                {
+                    moveCache.moveType = "vertical";
+                    moveCache.direction = -1;
+                    Move();
+                }
+            }
+            else
+            {
+                if (Random.Range(0, 1) == 1)
+                {
+                    if (targetDir.x == Mathf.Abs(targetDir.x))
+                    {
+                        moveCache.moveType = "horizontal";
+                        moveCache.direction = 1;
+                        Move();
+                    }
+                    else
+                    {
+                        moveCache.moveType = "horizontal";
+                        moveCache.direction = -1;
+                        Move();
+                    }
+                }
+                else
+                {
+                    if (targetDir.y == Mathf.Abs(targetDir.y))
+                    {
+                        moveCache.moveType = "vertical";
+                        moveCache.direction = 1;
+                        Move();
+                    }
+                    else
+                    {
+                        moveCache.moveType = "vertical";
+                        moveCache.direction = -1;
+                        Move();
+                    }
+                }
+            }
+        }
+        
+
+
         /*
         if(Vector2.Distance(transform.position, player.position)> stoppingDistance)
         {
@@ -66,6 +147,8 @@ public class T2Enemy : MonoBehaviour
 
     private void Move()
     {
+        rb.velocity = Vector3.zero;
+
         //vertical
         if (moveCache.moveType == "vertical")
         {
