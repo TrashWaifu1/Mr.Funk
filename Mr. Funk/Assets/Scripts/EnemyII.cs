@@ -41,6 +41,8 @@ public class EnemyII : MonoBehaviour
         {
             if (Mathf.Abs(targetDir.x) > Mathf.Abs(targetDir.y))
             {
+                Debug.Log("Horizontal distance is greater");
+
                 if ((int)targetDir.x == Mathf.Abs(targetDir.x))
                 {
                     moveCache.moveType = "horizontal";
@@ -56,6 +58,8 @@ public class EnemyII : MonoBehaviour
             }
             else if (Mathf.Abs(targetDir.x) < Mathf.Abs(targetDir.y))
             {
+                Debug.Log("Vertical distance is greater");
+
                 if ((int)targetDir.y == Mathf.Abs(targetDir.y))
                 {
                     moveCache.moveType = "vertical";
@@ -69,7 +73,7 @@ public class EnemyII : MonoBehaviour
                     Move();
                 }
             }
-            else
+            else 
             {
                 if (Random.Range(0, 1) == 1)
                 {
