@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyII : MonoBehaviour
 {
+    
     public float speed;
     public MoveCache moveCache;
     public MoveCache emptyCache;
@@ -16,6 +17,7 @@ public class EnemyII : MonoBehaviour
     private GameObject gameManager;
     private bool clap;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +29,8 @@ public class EnemyII : MonoBehaviour
         pos = transform.position;
         player = GameObject.Find("Player");
     }
-
+    
+    
     // Update is called once per frame
     void Update()
     {
@@ -50,14 +53,14 @@ public class EnemyII : MonoBehaviour
                 {
                     // right
                     moveCache.moveType = "horizontal";
-                    moveCache.direction =  1;
+                    moveCache.direction =  -1;
                     Move();
                 }
                 else
                 {
                     // left
                     moveCache.moveType = "horizontal";
-                    moveCache.direction = -1;
+                    moveCache.direction = 1;
                     Move();
                 }
             }
@@ -69,14 +72,14 @@ public class EnemyII : MonoBehaviour
                 {
                     //up
                     moveCache.moveType = "vertical";
-                    moveCache.direction = 1;
+                    moveCache.direction = -1;
                     Move();
                 }
                 else
                 {
                     //down
                     moveCache.moveType = "vertical";
-                    moveCache.direction = -1;
+                    moveCache.direction = 1;
                     Move();
                 }
             }
@@ -88,14 +91,14 @@ public class EnemyII : MonoBehaviour
                     {
                         //right
                         moveCache.moveType = "horizontal";
-                        moveCache.direction = 1;
+                        moveCache.direction = -1;
                         Move();
                     }
                     else
                     {
                         //left
                         moveCache.moveType = "horizontal";
-                        moveCache.direction = -1;
+                        moveCache.direction = 1;
                         Move();
                     }
                 }
@@ -119,7 +122,8 @@ public class EnemyII : MonoBehaviour
             }
         }
     }
-
+    
+    
     private void FixedUpdate()
     {
         if (transform.position != pos)
@@ -131,9 +135,11 @@ public class EnemyII : MonoBehaviour
             rb.velocity = Vector3.zero;
         }
     }
+    
 
     private void Move()
     {
+        
         rb.velocity = Vector3.zero;
 
         //vertical
@@ -150,11 +156,14 @@ public class EnemyII : MonoBehaviour
         }
 
         atDestination = false;
+        
     }
-
+    
+    
     public class MoveCache
     {
         public string moveType = "";
         public float direction = 0;
     }
+    
 }
