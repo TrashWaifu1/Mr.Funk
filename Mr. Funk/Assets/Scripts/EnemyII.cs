@@ -53,14 +53,14 @@ public class EnemyII : MonoBehaviour
                 {
                     // right
                     moveCache.moveType = "horizontal";
-                    moveCache.direction =  -1;
+                    moveCache.direction =  1;
                     Move();
                 }
                 else
                 {
                     // left
                     moveCache.moveType = "horizontal";
-                    moveCache.direction = 1;
+                    moveCache.direction = -1;
                     Move();
                 }
             }
@@ -72,14 +72,14 @@ public class EnemyII : MonoBehaviour
                 {
                     //up
                     moveCache.moveType = "vertical";
-                    moveCache.direction = -1;
+                    moveCache.direction = 1;
                     Move();
                 }
                 else
                 {
                     //down
                     moveCache.moveType = "vertical";
-                    moveCache.direction = 1;
+                    moveCache.direction = -1;
                     Move();
                 }
             }
@@ -91,14 +91,14 @@ public class EnemyII : MonoBehaviour
                     {
                         //right
                         moveCache.moveType = "horizontal";
-                        moveCache.direction = -1;
+                        moveCache.direction = 1;
                         Move();
                     }
                     else
                     {
                         //left
                         moveCache.moveType = "horizontal";
-                        moveCache.direction = 1;
+                        moveCache.direction = -1;
                         Move();
                     }
                 }
@@ -108,14 +108,14 @@ public class EnemyII : MonoBehaviour
                     {
                         //up
                         moveCache.moveType = "vertical";
-                        moveCache.direction = -1;
+                        moveCache.direction = 1;
                         Move();
                     }
                     else
                     {
                         //down
                         moveCache.moveType = "vertical";
-                        moveCache.direction = 1;
+                        moveCache.direction = -1;
                         Move();
                     }
                 }
