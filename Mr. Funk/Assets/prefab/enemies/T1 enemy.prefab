@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
+  player: {fileID: 0}
 --- !u!58 &1112100988
 CircleCollider2D:
   m_ObjectHideFlags: 0
