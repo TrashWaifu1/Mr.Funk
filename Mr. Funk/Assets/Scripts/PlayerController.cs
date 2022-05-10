@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
     private bool powerUp;
     private float bulletLife;
     private GameObject bulletChash;
+    private bool upCheck;
+    private bool downCheck;
+    private bool rightCheck;
+    private bool leftCheck;
 
     void Start()
     {
@@ -43,6 +47,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        upCheck = !Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.5f), Vector2.up, 0.2f);
+        downCheck = !Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - 0.5f), Vector2.down, 0.2f);
+        rightCheck = !Physics2D.Raycast(new Vector2(transform.position.x + 0.5f, transform.position.y), Vector2.right, 0.2f);
+        leftCheck = !Physics2D.Raycast(new Vector2(transform.position.x - 0.5f, transform.position.y), Vector2.left, 0.2f);
+
         imageMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Clamp(funkMeater / 4.5f, 0, 230));
         imageMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Clamp(funkMeater / 4.5f, 0, 230));
 
@@ -77,7 +86,7 @@ public class PlayerController : MonoBehaviour
         bool clap = beatTracker.GetComponent<BeatTracker>().go;
 
         #region Movement&FunckFail
-        if ((Input.GetAxisRaw("Vertical") == 1) && !moved && clap)
+        if ((Input.GetAxisRaw("Vertical") == 1) && !moved && clap && upCheck)
         {
             moveCache.moveType = "vertical";
             moveCache.direction = 1;
@@ -89,7 +98,7 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetAxisRaw("Vertical") == 1) && !clap && !powerUp)
             funkMeater -= failAmount;
 
-        else if (((Input.GetAxisRaw("Vertical")) == -1) && !moved && clap)
+        else if (((Input.GetAxisRaw("Vertical")) == -1) && !moved && clap && downCheck)
         {
             moveCache.moveType = "vertical";
             moveCache.direction = -1;
@@ -101,7 +110,7 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetAxisRaw("Vertical") == -1) && !clap && !powerUp)
             funkMeater -= failAmount;
 
-        else if ((Input.GetAxisRaw("Horizontal") == 1) && !moved && clap)
+        else if ((Input.GetAxisRaw("Horizontal") == 1) && !moved && clap && rightCheck)
         {
             moveCache.moveType = "horizontal";
             moveCache.direction = 1;
@@ -114,7 +123,7 @@ public class PlayerController : MonoBehaviour
             funkMeater -= failAmount;
 
 
-        else if ((Input.GetAxisRaw("Horizontal") == -1) && !moved && clap)
+        else if ((Input.GetAxisRaw("Horizontal") == -1) && !moved && clap && leftCheck)
         {
             moveCache.moveType = "horizontal";
             moveCache.direction = -1;
@@ -443,14 +452,11 @@ public class PlayerController : MonoBehaviour
         //vertical
         if (moveCache.moveType == "vertical")
         {
-            //if (Physics2D.Raycast(new Vector2(transform.position.x, moveCache.direction), Vector2.up, 0.1f) == false)
-            //{
-                pos.y = moveCache.direction + transform.position.y;
-                pos.x = transform.position.x;
-           // }
+             pos.y = moveCache.direction + transform.position.y;
+             pos.x = transform.position.x;
         }
         //horizontal
-        else /*if(Physics2D.Raycast(new Vector2(moveCache.direction, transform.position.y), Vector2.up, 0.1f) == false)*/
+        else
         {
             pos.x = moveCache.direction + transform.position.x;
             pos.y = transform.position.y;

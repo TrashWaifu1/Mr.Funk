@@ -16,8 +16,12 @@ public class EnemyII : MonoBehaviour
     public Vector2 targetDir;
     private GameObject gameManager;
     private bool clap;
+    private bool upCheck;
+    private bool downCheck;
+    private bool rightCheck;
+    private bool leftCheck;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +38,13 @@ public class EnemyII : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        upCheck = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.51f), Vector2.up, 0.2f);
+        downCheck = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - 0.51f), Vector2.down, 0.2f);
+        rightCheck = Physics2D.Raycast(new Vector2(transform.position.x + 0.51f, transform.position.y), Vector2.right, 0.2f);
+        leftCheck = Physics2D.Raycast(new Vector2(transform.position.x - 0.51f, transform.position.y), Vector2.left, 0.2f);
+
+        Debug.Log(upCheck);
+
         clap = gameManager.GetComponent<BeatTracker>().clap;
         moveCache = emptyCache;
 
@@ -54,16 +64,16 @@ public class EnemyII : MonoBehaviour
                     {
                         if (Mathf.Abs(targetDir.x) > Mathf.Abs(targetDir.y))
                         {
-                            if (targetDir.x == Mathf.Abs(targetDir.x))
+                            if (targetDir.x == Mathf.Abs(targetDir.x) && !leftCheck)
                             {
-                                // right
+                                // left
                                 moveCache.moveType = "horizontal";
                                 moveCache.direction = -1;
                                 Move();
                             }
-                            else if (targetDir.x != Mathf.Abs(targetDir.x))
+                            else if (targetDir.x != Mathf.Abs(targetDir.x) && !rightCheck)
                             {
-                                // left
+                                // right
                                 moveCache.moveType = "horizontal";
                                 moveCache.direction = 1;
                                 Move();
@@ -71,16 +81,16 @@ public class EnemyII : MonoBehaviour
                         }
                         else if (Mathf.Abs(targetDir.x) < Mathf.Abs(targetDir.y))
                         {
-                            if (targetDir.y == Mathf.Abs(targetDir.y))
+                            if (targetDir.y == Mathf.Abs(targetDir.y) && !downCheck)
                             {
-                                //up
+                                //down
                                 moveCache.moveType = "vertical";
                                 moveCache.direction = -1;
                                 Move();
                             }
-                            else if (targetDir.y != Mathf.Abs(targetDir.y))
+                            else if (targetDir.y != Mathf.Abs(targetDir.y) && !upCheck)
                             {
-                                //down
+                                //up
                                 moveCache.moveType = "vertical";
                                 moveCache.direction = 1;
                                 Move();
@@ -90,16 +100,16 @@ public class EnemyII : MonoBehaviour
                         {
                             if (Random.Range(0, 1) == 1)
                             {
-                                if (targetDir.x == Mathf.Abs(targetDir.x))
+                                if (targetDir.x == Mathf.Abs(targetDir.x) && !leftCheck)
                                 {
-                                    //right
+                                    //left
                                     moveCache.moveType = "horizontal";
                                     moveCache.direction = -1;
                                     Move();
                                 }
-                                else if (targetDir.x != Mathf.Abs(targetDir.x))
+                                else if (targetDir.x != Mathf.Abs(targetDir.x) && !rightCheck)
                                 {
-                                    //left
+                                    //right
                                     moveCache.moveType = "horizontal";
                                     moveCache.direction = 1;
                                     Move();
@@ -107,16 +117,16 @@ public class EnemyII : MonoBehaviour
                             }
                             else
                             {
-                                if (targetDir.y == Mathf.Abs(targetDir.y))
+                                if (targetDir.y == Mathf.Abs(targetDir.y) && !downCheck)
                                 {
-                                    //up
+                                    //down
                                     moveCache.moveType = "vertical";
                                     moveCache.direction = -1;
                                     Move();
                                 }
-                                else if ((targetDir.y != Mathf.Abs(targetDir.y)))
+                                else if (targetDir.y != Mathf.Abs(targetDir.y) && !upCheck)
                                 {
-                                    //down
+                                    //up
                                     moveCache.moveType = "vertical";
                                     moveCache.direction = 1;
                                     Move();
