@@ -13,7 +13,7 @@ public class EnemyII : MonoBehaviour
     private Vector3 pos;
     private Rigidbody2D rb;
     private bool atDestination = true;
-    private Vector2 targetDir;
+    public Vector2 targetDir;
     private GameObject gameManager;
     private bool clap;
 
@@ -41,76 +41,88 @@ public class EnemyII : MonoBehaviour
         targetDir.x = transform.position.x - player.transform.position.x;
         targetDir.y = transform.position.y - player.transform.position.y;
 
+
         if (clap)
         {
-            if (Mathf.Abs(targetDir.x) > Mathf.Abs(targetDir.y))
+            // too far check
+            if (Mathf.Abs(targetDir.x) < 6 && Mathf.Abs(targetDir.y) < 6)
             {
-                if (targetDir.x == Mathf.Abs(targetDir.x))
+                // too close check
+                if (Mathf.Abs(targetDir.x) > 1)
                 {
-                    // right
-                    moveCache.moveType = "horizontal";
-                    moveCache.direction =  -1;
-                    Move();
-                }
-                else if (targetDir.x != Mathf.Abs(targetDir.x))
-                {
-                    // left
-                    moveCache.moveType = "horizontal";
-                    moveCache.direction = 1;
-                    Move();
-                }
-            }
-            else if (Mathf.Abs(targetDir.x) < Mathf.Abs(targetDir.y))
-            {
-                if (targetDir.y == Mathf.Abs(targetDir.y))
-                {
-                    //up
-                    moveCache.moveType = "vertical";
-                    moveCache.direction = -1;
-                    Move();
-                }
-                else if (targetDir.y != Mathf.Abs(targetDir.y))
-                {
-                    //down
-                    moveCache.moveType = "vertical";
-                    moveCache.direction = 1;
-                    Move();
-                }
-            }
-            else 
-            {
-                if (Random.Range(0, 1) == 1)
-                {
-                    if (targetDir.x == Mathf.Abs(targetDir.x))
+                    if (Mathf.Abs(targetDir.y) > 1)
                     {
-                        //right
-                        moveCache.moveType = "horizontal";
-                        moveCache.direction = -1;
-                        Move();
-                    }
-                    else if (targetDir.x != Mathf.Abs(targetDir.x))
-                    {
-                        //left
-                        moveCache.moveType = "horizontal";
-                        moveCache.direction = 1;
-                        Move();
-                    }
-                }
-                else
-                {
-                    if (targetDir.y == Mathf.Abs(targetDir.y))
-                    {
-                        //up
-                        moveCache.moveType = "vertical";
-                        moveCache.direction = -1;
-                        Move();
-                    }
-                    else if ((targetDir.y != Mathf.Abs(targetDir.y)))
-                    {
-                        //down
-                        moveCache.moveType = "vertical";
-                        moveCache.direction = 1;
-                        Move();
+                        if (Mathf.Abs(targetDir.x) > Mathf.Abs(targetDir.y))
+                        {
+                            if (targetDir.x == Mathf.Abs(targetDir.x))
+                            {
+                                // right
+                                moveCache.moveType = "horizontal";
+                                moveCache.direction = -1;
+                                Move();
+                            }
+                            else if (targetDir.x != Mathf.Abs(targetDir.x))
+                            {
+                                // left
+                                moveCache.moveType = "horizontal";
+                                moveCache.direction = 1;
+                                Move();
+                            }
+                        }
+                        else if (Mathf.Abs(targetDir.x) < Mathf.Abs(targetDir.y))
+                        {
+                            if (targetDir.y == Mathf.Abs(targetDir.y))
+                            {
+                                //up
+                                moveCache.moveType = "vertical";
+                                moveCache.direction = -1;
+                                Move();
+                            }
+                            else if (targetDir.y != Mathf.Abs(targetDir.y))
+                            {
+                                //down
+                                moveCache.moveType = "vertical";
+                                moveCache.direction = 1;
+                                Move();
+                            }
+                        }
+                        else
+                        {
+                            if (Random.Range(0, 1) == 1)
+                            {
+                                if (targetDir.x == Mathf.Abs(targetDir.x))
+                                {
+                                    //right
+                                    moveCache.moveType = "horizontal";
+                                    moveCache.direction = -1;
+                                    Move();
+                                }
+                                else if (targetDir.x != Mathf.Abs(targetDir.x))
+                                {
+                                    //left
+                                    moveCache.moveType = "horizontal";
+                                    moveCache.direction = 1;
+                                    Move();
+                                }
+                            }
+                            else
+                            {
+                                if (targetDir.y == Mathf.Abs(targetDir.y))
+                                {
+                                    //up
+                                    moveCache.moveType = "vertical";
+                                    moveCache.direction = -1;
+                                    Move();
+                                }
+                                else if ((targetDir.y != Mathf.Abs(targetDir.y)))
+                                {
+                                    //down
+                                    moveCache.moveType = "vertical";
+                                    moveCache.direction = 1;
+                                    Move();
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -139,18 +151,20 @@ public class EnemyII : MonoBehaviour
         //vertical
         if (moveCache.moveType == "vertical")
         {
-            pos.y = moveCache.direction + transform.position.y;
-            pos.x = transform.position.x;
+            if (Physics2D.Raycast(new Vector2(transform.position.x, moveCache.direction), Vector2.up, 0.1f) == false)
+            {
+                pos.y = moveCache.direction + transform.position.y;
+                pos.x = transform.position.x;
+            }
         }
         //horizontal
-        else
+        else if (Physics2D.Raycast(new Vector2(moveCache.direction, transform.position.y), Vector2.up, 0.1f) == false)
         {
             pos.x = moveCache.direction + transform.position.x;
             pos.y = transform.position.y;
         }
 
         atDestination = false;
-        
     }
     
     

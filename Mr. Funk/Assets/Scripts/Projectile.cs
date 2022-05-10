@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public GameObject player;
     public float speed = 500;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        transform.LookAt(player.transform);
     }
 
     // Update is called once per frame

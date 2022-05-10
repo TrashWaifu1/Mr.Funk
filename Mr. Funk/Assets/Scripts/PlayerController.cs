@@ -443,11 +443,14 @@ public class PlayerController : MonoBehaviour
         //vertical
         if (moveCache.moveType == "vertical")
         {
-            pos.y =  moveCache.direction + transform.position.y;
-            pos.x = transform.position.x;
+            //if (Physics2D.Raycast(new Vector2(transform.position.x, moveCache.direction), Vector2.up, 0.1f) == false)
+            //{
+                pos.y = moveCache.direction + transform.position.y;
+                pos.x = transform.position.x;
+           // }
         }
         //horizontal
-        else
+        else /*if(Physics2D.Raycast(new Vector2(moveCache.direction, transform.position.y), Vector2.up, 0.1f) == false)*/
         {
             pos.x = moveCache.direction + transform.position.x;
             pos.y = transform.position.y;
