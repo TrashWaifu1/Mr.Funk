@@ -4,36 +4,26 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public GameObject player;
     public float speed = 500;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        transform.LookAt(player.transform);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float lifeTime = 30;
 
     private void FixedUpdate()
     {
         Vector3 velocity = GetComponent<Rigidbody2D>().velocity;
         velocity = transform.TransformDirection(Vector3.right) * speed * Time.deltaTime;
         GetComponent<Rigidbody2D>().velocity = velocity;
+
+        lifeTime--;
+
+        if (lifeTime <= 0)
+            Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "enemy")
+        if (collision.tag == "Player")
         {
-            collision.gameObject.GetComponent<EnemyController>().health -= 0.5f;
-            collision.gameObject.GetComponent<EnemyController>().damage = true;
+            collision.GetComponent<PlayerController>().funkMeater -= 10;
         }
-        else
-            Destroy(gameObject);
     }
 }
