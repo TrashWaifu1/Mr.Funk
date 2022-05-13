@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 7294230167686762865}
   - component: {fileID: 6521720958097532936}
   - component: {fileID: -3566809003927934835}
+  - component: {fileID: 6901015588725313502}
   m_Layer: 8
   m_Name: T2 enemy
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,3 +140,20 @@ MonoBehaviour:
   speed: 100
   player: {fileID: 0}
   targetDir: {x: 0, y: 0}
+--- !u!114 &6901015588725313502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2533456719172283633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10e781013b711b4bb3bfe1e9610c0ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  projectile: {fileID: 6360287361274582865, guid: 9ca995f82f48f1f44b101c87d0adb31e, type: 3}
+  Player: {fileID: 0}
+  myRB: {fileID: 0}
+  Health: 10

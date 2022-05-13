@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private bool downCheck;
     private bool rightCheck;
     private bool leftCheck;
+    private bool reZero = true;
 
     void Start()
     {
@@ -47,6 +48,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (moved)
+            reZero = false;
+
+        if (Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0)
+            reZero = true;
+
         upCheck = !Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.5f), Vector2.up, 0.2f);
         downCheck = !Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - 0.5f), Vector2.down, 0.2f);
         rightCheck = !Physics2D.Raycast(new Vector2(transform.position.x + 0.5f, transform.position.y), Vector2.right, 0.2f);
@@ -86,7 +93,7 @@ public class PlayerController : MonoBehaviour
         bool clap = beatTracker.GetComponent<BeatTracker>().go;
 
         #region Movement&FunckFail
-        if ((Input.GetAxisRaw("Vertical") == 1) && !moved && clap && upCheck)
+        if ((Input.GetAxisRaw("Vertical") == 1) && !moved && clap && upCheck && reZero)
         {
             moveCache.moveType = "vertical";
             moveCache.direction = 1;
@@ -98,7 +105,7 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetAxisRaw("Vertical") == 1) && !clap && !powerUp)
             funkMeater -= failAmount;
 
-        else if (((Input.GetAxisRaw("Vertical")) == -1) && !moved && clap && downCheck)
+        else if ((Input.GetAxisRaw("Vertical") == -1) && !moved && clap && downCheck && reZero)
         {
             moveCache.moveType = "vertical";
             moveCache.direction = -1;
@@ -110,7 +117,7 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetAxisRaw("Vertical") == -1) && !clap && !powerUp)
             funkMeater -= failAmount;
 
-        else if ((Input.GetAxisRaw("Horizontal") == 1) && !moved && clap && rightCheck)
+        else if ((Input.GetAxisRaw("Horizontal") == 1) && !moved && clap && rightCheck && reZero)
         {
             moveCache.moveType = "horizontal";
             moveCache.direction = 1;
@@ -123,7 +130,7 @@ public class PlayerController : MonoBehaviour
             funkMeater -= failAmount;
 
 
-        else if ((Input.GetAxisRaw("Horizontal") == -1) && !moved && clap && leftCheck)
+        else if ((Input.GetAxisRaw("Horizontal") == -1) && !moved && clap && leftCheck && reZero)
         {
             moveCache.moveType = "horizontal";
             moveCache.direction = -1;
@@ -140,7 +147,7 @@ public class PlayerController : MonoBehaviour
         #region Special attack
         if (Input.GetKey(KeyCode.Keypad0))
         {
-            if (Input.GetButton("B"))
+            if (Input.GetKeyDown(KeyCode.Keypad6) || Input.GetButton("B"))
             {
                 // punch right
                 if (Physics2D.Raycast(transform.position, Vector2.right, 1))
@@ -173,7 +180,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (Input.GetButton("X"))
+            if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetButton("X"))
             {
                 // puch left
                 if (Physics2D.Raycast(transform.position, Vector2.left, 1))
@@ -206,7 +213,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (Input.GetButton("A"))
+            if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetButton("A"))
             {
                 // punch down
                 if (Physics2D.Raycast(transform.position, Vector2.down, 1))
@@ -239,7 +246,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (Input.GetButton("Y"))
+            if (Input.GetKeyDown(KeyCode.Keypad8) || Input.GetButton("Y"))
             {
                 // punch up
                 if (Physics2D.Raycast(transform.position, Vector2.up, 1))
@@ -277,7 +284,7 @@ public class PlayerController : MonoBehaviour
         #region Normal attack
         else
         {
-            if (Input.GetButton("B") && punchCoolDown <= 0)
+            if (Input.GetKeyDown(KeyCode.Keypad6) || Input.GetButton("B") && punchCoolDown <= 0)
             {
                 // punch right
                 if (Physics2D.Raycast(transform.position, Vector2.right, 1))
@@ -301,7 +308,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (Input.GetButton("X") && punchCoolDown <= 0)
+            if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetButton("X") && punchCoolDown <= 0)
             {
                 // puch left
                 if (Physics2D.Raycast(transform.position, Vector2.left, 1))
@@ -325,7 +332,7 @@ public class PlayerController : MonoBehaviour
                 }    
             }
 
-            if (Input.GetButton("A") && punchCoolDown <= 0)
+            if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetButton("A") && punchCoolDown <= 0)
             {
                 // punch down
                 if (Physics2D.Raycast(transform.position, Vector2.down, 1))
@@ -349,7 +356,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (Input.GetButton("Y") && punchCoolDown <= 0)
+            if (Input.GetKeyDown(KeyCode.Keypad8) || Input.GetButton("Y") && punchCoolDown <= 0)
             {
                 // punch up
                 if (Physics2D.Raycast(transform.position, Vector2.up, 1))

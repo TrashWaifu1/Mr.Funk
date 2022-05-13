@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class EnemyDamage1 : MonoBehaviour
 {
-    public GameObject gameManager;
     public GameObject projectile;
-    public GameObject Player;
-
-    public Rigidbody2D myRB;
     public int Health = 10;
+    public float offset = 210;
+
+    private GameObject gameManager;
+    private GameObject Player;
+    private Rigidbody2D myRB;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,7 @@ public class EnemyDamage1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        myRB.rotation = Mathf.Atan2(transform.position.x - Player.transform.position.x, Player.transform.position.y - transform.position.y) * Mathf.Rad2Deg + 210;
+        myRB.rotation = Mathf.Atan2(transform.position.x - Player.transform.position.x, Player.transform.position.y - transform.position.y) * Mathf.Rad2Deg + offset;
         //transform.LookAt(Player.transform);
 
         if (gameManager.GetComponent<BeatTracker>().clap)
