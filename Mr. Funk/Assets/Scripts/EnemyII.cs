@@ -43,8 +43,6 @@ public class EnemyII : MonoBehaviour
         rightCheck = Physics2D.Raycast(new Vector2(transform.position.x + 0.51f, transform.position.y), Vector2.right, 0.2f);
         leftCheck = Physics2D.Raycast(new Vector2(transform.position.x - 0.51f, transform.position.y), Vector2.left, 0.2f);
 
-        Debug.Log(upCheck);
-
         clap = gameManager.GetComponent<BeatTracker>().clap;
         moveCache = emptyCache;
 

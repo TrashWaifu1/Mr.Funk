@@ -102,8 +102,8 @@ public class PlayerController : MonoBehaviour
             Perfect();
         }
 
-        if ((Input.GetAxisRaw("Vertical") == 1) && !clap && !powerUp)
-            funkMeater -= failAmount;
+        //if ((Input.GetAxisRaw("Vertical") == 1) && !clap && !powerUp)
+            //funkMeater -= failAmount;
 
         else if ((Input.GetAxisRaw("Vertical") == -1) && !moved && clap && downCheck && reZero)
         {
@@ -114,8 +114,8 @@ public class PlayerController : MonoBehaviour
             Perfect();
         }
 
-        if ((Input.GetAxisRaw("Vertical") == -1) && !clap && !powerUp)
-            funkMeater -= failAmount;
+        //if ((Input.GetAxisRaw("Vertical") == -1) && !clap && !powerUp)
+            //funkMeater -= failAmount;
 
         else if ((Input.GetAxisRaw("Horizontal") == 1) && !moved && clap && rightCheck && reZero)
         {
@@ -126,8 +126,8 @@ public class PlayerController : MonoBehaviour
             Perfect();
         }
 
-        if ((Input.GetAxisRaw("Horizontal") == 1) && !clap && !powerUp)
-            funkMeater -= failAmount;
+        //if ((Input.GetAxisRaw("Horizontal") == 1) && !clap && !powerUp)
+            //funkMeater -= failAmount;
 
 
         else if ((Input.GetAxisRaw("Horizontal") == -1) && !moved && clap && leftCheck && reZero)
@@ -139,8 +139,8 @@ public class PlayerController : MonoBehaviour
             Perfect();
         }
 
-        if ((Input.GetAxisRaw("Horizontal") == -1) && !clap && !powerUp)
-            funkMeater -= failAmount;
+        //if ((Input.GetAxisRaw("Horizontal") == -1) && !clap && !powerUp)
+            //funkMeater -= failAmount;
 
         funkMeater = Mathf.Clamp(funkMeater, 0, maxFunk);
         #endregion
@@ -158,11 +158,11 @@ public class PlayerController : MonoBehaviour
 
                         if (powerUp)
                         {
-                            hit.GetComponent<EnemyController>().health -= 5;
-                            hit.GetComponent<EnemyController>().damage = true;
+                            hit.GetComponent<EnemyDamage1>().health -= 5;
+                            hit.GetComponent<EnemyDamage1>().damage = true;
                             punchCoolDown = 0.3f;
                             powerUp = false;
-                            funkMeater = 0;
+                            funkMeater -= 300;
                         }
                     }
                 }
@@ -191,11 +191,11 @@ public class PlayerController : MonoBehaviour
 
                         if (powerUp)
                         {
-                            hit.GetComponent<EnemyController>().health -= 5;
-                            hit.GetComponent<EnemyController>().damage = true;
+                            hit.GetComponent<EnemyDamage1>().health -= 5;
+                            hit.GetComponent<EnemyDamage1>().damage = true;
                             punchCoolDown = 0.3f;
                             powerUp = false;
-                            funkMeater = 0;
+                            funkMeater -= 300;
                         }
                     }
                 }
@@ -224,8 +224,8 @@ public class PlayerController : MonoBehaviour
 
                         if (powerUp)
                         {
-                            hit.GetComponent<EnemyController>().health -= 5;
-                            hit.GetComponent<EnemyController>().damage = true;
+                            hit.GetComponent<EnemyDamage1>().health -= 5;
+                            hit.GetComponent<EnemyDamage1>().damage = true;
                             punchCoolDown = 0.3f;
                             powerUp = false;
                             funkMeater = 0;
@@ -257,8 +257,8 @@ public class PlayerController : MonoBehaviour
 
                         if (powerUp)
                         {
-                            hit.GetComponent<EnemyController>().health -= 5;
-                            hit.GetComponent<EnemyController>().damage = true;
+                            hit.GetComponent<EnemyDamage1>().health -= 5;
+                            hit.GetComponent<EnemyDamage1>().damage = true;
                             punchCoolDown = 0.3f;
                             powerUp = false;
                             funkMeater = 0;
@@ -292,8 +292,8 @@ public class PlayerController : MonoBehaviour
                     if (Physics2D.Raycast(transform.position, Vector2.right, 1).transform.tag == "enemy")
                     {
                         GameObject hit = Physics2D.Raycast(transform.position, Vector2.right, 1).transform.gameObject;
-                        hit.GetComponent<EnemyController>().health--;
-                        hit.GetComponent<EnemyController>().damage = true;
+                        hit.GetComponent<EnemyDamage1>().health--;
+                        hit.GetComponent<EnemyDamage1>().damage = true;
                         punchCoolDown = 0.3f;
                     }
                 }
@@ -316,8 +316,8 @@ public class PlayerController : MonoBehaviour
                     if (Physics2D.Raycast(transform.position, Vector2.left, 1).transform.tag == "enemy")
                     {
                         GameObject hit = Physics2D.Raycast(transform.position, Vector2.left, 1).transform.gameObject;
-                        hit.GetComponent<EnemyController>().health--;
-                        hit.GetComponent<EnemyController>().damage = true;
+                        hit.GetComponent<EnemyDamage1>().health--;
+                        hit.GetComponent<EnemyDamage1>().damage = true;
                         punchCoolDown = 0.3f;
                     }
                 }
@@ -340,8 +340,8 @@ public class PlayerController : MonoBehaviour
                     if (Physics2D.Raycast(transform.position, Vector2.down, 1).transform.tag == "enemy")
                     {
                         GameObject hit = Physics2D.Raycast(transform.position, Vector2.down, 1).transform.gameObject;
-                        hit.GetComponent<EnemyController>().health--;
-                        hit.GetComponent<EnemyController>().damage = true;
+                        hit.GetComponent<EnemyDamage1>().health--;
+                        hit.GetComponent<EnemyDamage1>().damage = true;
                         punchCoolDown = 0.3f;
                     }
                 }
@@ -364,8 +364,8 @@ public class PlayerController : MonoBehaviour
                     if (Physics2D.Raycast(transform.position, Vector2.up, 1).transform.tag == "enemy")
                     {
                         GameObject hit = Physics2D.Raycast(transform.position, Vector2.up, 1).transform.gameObject;
-                        hit.GetComponent<EnemyController>().health--;
-                        hit.GetComponent<EnemyController>().damage = true;
+                        hit.GetComponent<EnemyDamage1>().health--;
+                        hit.GetComponent<EnemyDamage1>().damage = true;
                         punchCoolDown = 0.3f;
                     }
                 }
@@ -398,8 +398,8 @@ public class PlayerController : MonoBehaviour
                     if (Physics2D.Raycast(transform.position, laserDir, 6).transform.tag == "enemy")
                     {
                         GetComponent<LineRenderer>().SetPosition(1, hitPoint);
-                        hit.GetComponent<EnemyController>().health -= laserDamge * Time.deltaTime;
-                        hit.GetComponent<EnemyController>().damage = true;
+                        hit.GetComponent<EnemyDamage1>().health -= laserDamge * Time.deltaTime;
+                        hit.GetComponent<EnemyDamage1>().damage = true;
                     }
                 }
                 else

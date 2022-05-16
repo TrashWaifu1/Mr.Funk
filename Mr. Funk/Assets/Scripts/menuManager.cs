@@ -14,7 +14,10 @@ public class menuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKey)
+        if (Input.anyKey && SceneManager.GetActiveScene().buildIndex == 0)
             SceneManager.LoadScene(1);
+
+        if (Input.anyKey && SceneManager.GetActiveScene().buildIndex == 2)
+            SceneManager.LoadScene(0);
     }
 }
