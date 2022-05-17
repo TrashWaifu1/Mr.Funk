@@ -5,11 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class menuManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float time = 10;
 
     // Update is called once per frame
     void Update()
@@ -22,7 +18,10 @@ public class menuManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
-           // if (gameObject.GetComponent<>)
+            time -= 1 * Time.deltaTime;
+
+            if (time <= 0)
+                SceneManager.LoadScene(0);
         }
     }
 
