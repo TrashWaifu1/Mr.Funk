@@ -26,6 +26,9 @@ public class EnemyDamage1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0)
+            Destroy(gameObject);
+
         if (colorTime > 0)
             colorTime -= 1 * Time.deltaTime;
         else if (damage)

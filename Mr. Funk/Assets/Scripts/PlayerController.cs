@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public bool moved;
     public MoveCache emptyCache;
     public MoveCache moveCache;
-    public float funkMeater;
+    public float funkMeater = 500;
     public float laserDamge = 0.5f;
     public GameObject bulletMass;
     public RectTransform imageMask;
@@ -48,6 +49,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (funkMeater <= 0)
+            SceneManager.LoadScene(2);
+
         if (moved)
             reZero = false;
 
@@ -228,7 +232,7 @@ public class PlayerController : MonoBehaviour
                             hit.GetComponent<EnemyDamage1>().damage = true;
                             punchCoolDown = 0.3f;
                             powerUp = false;
-                            funkMeater = 0;
+                            funkMeater -= 300;
                         }
                     }
                 }
@@ -261,7 +265,7 @@ public class PlayerController : MonoBehaviour
                             hit.GetComponent<EnemyDamage1>().damage = true;
                             punchCoolDown = 0.3f;
                             powerUp = false;
-                            funkMeater = 0;
+                            funkMeater -= 300;
                         }
                     }
                 }
@@ -433,7 +437,7 @@ public class PlayerController : MonoBehaviour
         {
             laserDir = Vector2.zero;
             powerUp = false;
-            funkMeater = 0;
+            funkMeater -= 300;
             GetComponent<CircleCollider2D>().enabled = false;
             GetComponent<CircleCollider2D>().radius = 0;
             circleLaserFX.transform.localScale = new Vector3(0, 0, 1);

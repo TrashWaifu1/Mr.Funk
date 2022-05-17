@@ -19,5 +19,16 @@ public class menuManager : MonoBehaviour
 
         if (Input.anyKey && SceneManager.GetActiveScene().buildIndex == 2)
             SceneManager.LoadScene(0);
+
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+           // if (gameObject.GetComponent<>)
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+            SceneManager.LoadScene(3);
     }
 }
