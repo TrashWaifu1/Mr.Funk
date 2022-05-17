@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class menuManager : MonoBehaviour
 {
-    public float time = 10;
+    public float time = 18;
 
     // Update is called once per frame
     void Update()
