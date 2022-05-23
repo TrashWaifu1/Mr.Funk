@@ -35,9 +35,11 @@ public class PlayerController : MonoBehaviour
     private bool rightCheck;
     private bool leftCheck;
     private bool reZero = true;
+    GameManager gm;
 
     void Start()
     {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         emptyCache = new MoveCache();
         emptyCache.moveType = "";
         rb = GetComponent<Rigidbody2D>();
@@ -493,6 +495,18 @@ public class PlayerController : MonoBehaviour
         {
             collision.GetComponent<EnemyController>().health -= laserDamge;
             collision.GetComponent<EnemyController>().damage = true;
+        }
+
+        if (collision.gameObject.CompareTag("end"))
+        {
+            gm.playerOnEnd = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("end"))
+        {
+            gm.playerOnEnd = false;
         }
     }
 }

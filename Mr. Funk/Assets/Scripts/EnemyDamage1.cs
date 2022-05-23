@@ -8,12 +8,12 @@ public class EnemyDamage1 : MonoBehaviour
     public float health = 10;
     public bool damage;
     public float offset = 210;
+    public float colorTime;
 
+    GameManager gm;
     private GameObject gameManager;
     private GameObject Player;
     private Rigidbody2D myRB;
-    public float colorTime;
-    
 
     // Start is called before the first frame update
     void Start()
@@ -21,13 +21,18 @@ public class EnemyDamage1 : MonoBehaviour
         Player = GameObject.Find("Player");
         gameManager = GameObject.Find("GameManager");
         myRB = GetComponent<Rigidbody2D>();
+        gm = GetComponent<GameManager>();
+        gm.enemyCounter = +1;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (health <= 0)
+        {
             Destroy(gameObject);
+            gm.enemyCounter = -1;
+        }
 
         if (colorTime > 0)
             colorTime -= 1 * Time.deltaTime;
