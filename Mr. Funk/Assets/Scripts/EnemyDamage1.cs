@@ -22,7 +22,7 @@ public class EnemyDamage1 : MonoBehaviour
         gameManager = GameObject.Find("GameManager");
         myRB = GetComponent<Rigidbody2D>();
         gm = GetComponent<GameManager>();
-        gm.enemyCounter = +1;
+        gm.enemyCounter += 1;
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class EnemyDamage1 : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
-            gm.enemyCounter = -1;
+            gm.enemyCounter -= 1;
         }
 
         if (colorTime > 0)
