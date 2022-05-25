@@ -20,11 +20,10 @@ public class BossDamage : MonoBehaviour
         Debug.Log("it works");
         gameManager = GameObject.Find("GameManager");
         gm = GetComponent<GameManager>();
-        gm.BossCounter += 1;
+        gm.bossCounter += 1;
         Player = GameObject.Find("Player");
         
         myRB = GetComponent<Rigidbody2D>();
-        gm = GetComponent<GameManager>();
         gm.enemyCounter += 1;
     }
 
@@ -35,7 +34,7 @@ public class BossDamage : MonoBehaviour
         {
             Destroy(gameObject);
             gm.enemyCounter -= 1;
-            gm.BossCounter -= 1;
+            gm.bossCounter -= 1;
 
         }
 

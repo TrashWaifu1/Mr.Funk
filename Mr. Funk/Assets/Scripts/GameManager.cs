@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject quitButton;
     public int enemyCounter = 0;
     public bool playerOnEnd = false;
-    public int BossCounter = 1;
+    public int bossCounter = 1;
 
     // Start is called before the first frame update
     void Start()
