@@ -17,6 +17,7 @@ public class BossDamage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("it works");
         gameManager = GameObject.Find("GameManager");
         gm = GetComponent<GameManager>();
         gm.BossCounter += 1;
